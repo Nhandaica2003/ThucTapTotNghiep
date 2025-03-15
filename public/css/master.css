@@ -132,11 +132,13 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
+    border: 1px solid #ddd;
 }
 
 th, td {
     padding: 10px;
     text-align: left;
+    border: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
 
@@ -154,4 +156,4 @@ th {
     margin-left: auto; /* Đẩy nút sang bên phải */
     margin-right: 20px;
     display: flex;
-    }   
+}   

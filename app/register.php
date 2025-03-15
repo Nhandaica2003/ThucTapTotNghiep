@@ -10,8 +10,6 @@
 <body>
     <div class="container">
         <aside class="sidebar">
-            
-            
             <ul class="menu">
                 <div style="display: flex;align-items: center;">
                     <img src="../images/logo.jpg" alt="DUE Logo" class="logo" style="background-image: ;">
