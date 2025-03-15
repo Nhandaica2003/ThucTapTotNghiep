@@ -1,0 +1,157 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    
+}
+.divider {
+    width: 300px; /* Điều chỉnh độ rộng của gạch ngang */
+    height: 2px; /* Điều chỉnh độ dày của gạch ngang */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), white, rgba(255, 255, 255, 0));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng bóng đổ */
+    margin: 20px auto; /* Căn giữa gạch ngang và thêm khoảng cách */
+  }
+.sidebar {
+    width: 315px;
+    background-color: #096eba;
+    color: white;
+    padding: 40px;
+    height: 100vh;
+    font-size: large;
+}
+.logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu li.active, .menu li:hover {
+    background-color: #76aee6;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+}
+#hoc-ky, #nam-hoc {
+    border-radius: 5px; /* Điều chỉnh giá trị 5px để thay đổi độ cong của góc */
+    padding: 5px; /* Thêm padding để tạo khoảng cách giữa nội dung và viền */
+    border: 1px solid #ccc; /* Thêm viền để hiển thị rõ hơn */
+  }
+.content {
+    flex:1;
+    gap:10px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-left label {
+    margin-right: 10px;
+}
+
+.header-left select, .header-left input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.icon-button, .user-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.table-container {
+    display: flex;
+    overflow-x: auto;
+    width: 100%; /* Điều chỉnh độ rộng của container */
+    margin: 20px auto; /* Căn giữa container */
+    background-color:white; /* Màu nền của container */
+    border-radius:10px; /* Bo góc container */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); Tạo bóng đổ cho container */
+    overflow: hidden; /* Ẩn các phần tử tràn ra ngoài container */
+}
+.has-submenu {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #2980b9;
+    padding: 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.has-submenu:hover .submenu {
+    display: block;
+}
+
+.submenu-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.submenu-item:hover {
+    background-color: #2471a3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.add-button {
+    background-color: #096eba;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto; /* Đẩy nút sang bên phải */
+    margin-right: 20px;
+    display: flex;
+    }   

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý điểm ngoại khóa</title>
+    <link rel="stylesheet" href="../css/DangKi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-content input {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .modal-content button {
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal-content button.close {
+            background: #dc3545;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <ul class="menu">
+                <div style="display: flex;align-items: center;">
+                    <img src="../images/logo.jpg" alt="DUE Logo" class="logo">
+                    <span>Quản Lý Điểm Ngoại Khoá</span>
+                </div>
+                <div class="divider"></div>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> Quản lý học kỳ</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Quản lý danh mục điểm</a></li>
+                <li><a href="#"><i class="fas fa-list"></i> Hoạt động ngoại khóa</a></li>
+                <li><a href="#"><i class="fas fa-chart-bar"></i> Danh sách điểm</a></li>
+                <li><a href="#"><i class="fas fa-chart-pie"></i> Thống kê</a></li>
+                <li>
+                    <div class="menu-item has-submenu">
+                        <a href="#"><i class="fas fa-user"></i> Quản Lý Tài Khoản</a>     
+                        <div class="submenu">
+                            <div class="submenu-item">Danh Sách Tài Khoản</div>
+                            <div class="submenu-item">Tạo Tài Khoản</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="header">
+                <div class="header-left">
+                    <label for="hoc-ky">Học kỳ:</label>
+                    <select id="hoc-ky">
+                        <option value="1">Học kỳ 1</option>
+                        <option value="2">Học kỳ 2</option>
+                    </select>
+                    <label for="nam-hoc">Năm học:</label>
+                    <input type="date" id="nam-hoc">
+                </div>
+                <div class="header-right">
+                    <button class="icon-button"><i class="fas fa-bell"></i></button>
+                    <button class="icon-button"><i class="fas fa-user-cog"></i></button>
+                    <button class="user-button">Admin <i class="fas fa-chevron-down"></i></button>
+                </div>
+            </header>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên học kỳ</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Số hoạt động</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Học kỳ 1</td>
+                            <td>1-1-2021</td>
+                            <td>5-5-2021</td>
+                            <td>10</td>
+                            <td>
+                                <button class="icon-button"><i class="fas fa-edit"></i></button>
+                                <button class="icon-button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <button class="add-button" onclick="openModal()">Thêm học kỳ +</button>
+        </main>
+    </div>
+    
+    <div id="addSemesterModal" class="modal">
+        <div class="modal-content">
+            <h2 class="ThemMoi">Thêm Học Kỳ Mới</h2>
+                <label for="new-hoc-ky">Học kỳ:</label>
+                    <input type="text" id="new-hoc-ky">
+                <label for="new-start-date">Ngày bắt đầu:</label>
+                    <input type="date" id="new-start-date">
+                <label for="new-end-date">Ngày kết thúc:</label>
+                    <input type="date" id="new-end-date">
+                <label for="new-activity-count">Số hoạt động:</label>
+                    <input type="number" id="new-activity-count">
+            <button onclick="addSemester()">Lưu</button>
+            <button class="close" onclick="closeModal()">Đóng</button>
+        </div>
+    </div>
+    
+    <script>
+        function openModal() {
+            document.getElementById('addSemesterModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('addSemesterModal').style.display = 'none';
+        }
+        function addSemester() {
+            alert('Học kỳ mới đã được thêm!');
+            closeModal();
+        }
+    </script>
+</body>
+</html>
