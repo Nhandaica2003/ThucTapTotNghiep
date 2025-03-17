@@ -1,5 +1,5 @@
 <body>
-    <div class="container">
+    <div class="d-flex h-100 col-12">
         <aside class="sidebar">
             <ul class="menu">
                 <div style="display: flex;align-items: center;">
