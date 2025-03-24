@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include_once "../database.php";
 
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -21,7 +21,7 @@ if($user->password ==  md5($password)){
     
     $_SESSION['user_id'] = $user->id;
     $_SESSION['username'] = $user->username;
-    header('Location: HoatDong.php');
+    header('Location: /app/ManageHocKy.php');
     die();
 }
 

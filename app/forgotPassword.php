@@ -10,9 +10,10 @@
     <div class="login-container">
         <form action="handleLogin.php" method="POST" class="login-form">
             <img src="../images/logoDUE.png" alt="DUE Logo" class="logo">
-            <h4 style="margin-bottom: 10px;">Đăng nhập</h4>
+            <h4 style="margin-bottom: 10px;">Quên mật khẩu</h4>
             <input type="text" name="username" placeholder="Tên tài khoản" class="input-field">
-            <input type="password" name="password" placeholder="Mật khẩu" class="input-field">
+            <input type="password" name="password" placeholder="Mật khẩu mới" class="input-field">
+            <input type="password" name="password" placeholder="Nhập mật khẩu" class="input-field">
             <button class="login-button">Đăng nhập</button>
             <div class="forgot-password">
                 <a href="#">Quên mật khẩu?</a>

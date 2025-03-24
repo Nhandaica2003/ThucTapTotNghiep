@@ -8,7 +8,23 @@
                 </div>
                 <div class="divider"></div>
 
+                <li>
+                    <div class="menu-item has-submenu">
+                        <a href="#"><i class="fas fa-user"></i> Kết quả điểm rèn luyện</a>
+                        <div class="submenu">
+                            <div class="submenu-item">Điểm rèn luyện của tôi</div>
+                            <div class="submenu-item">Sinh viên tự đánh giá</div>
+                        </div>
+                    </div>
+                </li>
 
+                <li>
+                    <div class="menu-item">
+                        <a href="#"><i class="fas fa-user"></i> Điểm rèn luyện của lớp</a>
+                    </div>
+                </li>
+
+<!-- 
                 <li class=""><a href="#"><i class="fas fa-calendar-alt"></i> Quản lý học kỳ</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i> Quản lý danh mục điểm</a></li>
                 <li><a href="#"><i class="fas fa-list"></i>
@@ -26,7 +42,7 @@
                             <div class="submenu-item">Tạo Tài Khoản</div>
                         </div>
                     </div>
-                </li>
+                </li> -->
 
 
                 </li>

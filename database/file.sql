@@ -3,6 +3,11 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role_name VARCHAR(50) NOT NULL DEFAULT 'user',
+    group_id INT,
+    chuyennganh VARCHAR(255),
+    he_dao_tao VARCHAR(255),
+    full_name VARCHAR(255),
+    birthday DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -24,3 +29,10 @@ VALUES
 ('Học kì 1', '2024-02-01', '2024-06-01', 10),
 ('Học kì 2', '2023-06-15', '2023-08-30', 5),
 ('Fall 2025', '2025-09-10', '2026-01-15', 12);
+
+
+CREATE TABLE groups (
+    id SERIAL PRIMARY KEY,
+    group_name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

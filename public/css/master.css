@@ -4,11 +4,6 @@ body {
     display: flex;
 }
 
-.container {
-    display: flex;
-    width: 100%;
-    
-}
 .divider {
     width: 300px; /* Điều chỉnh độ rộng của gạch ngang */
     height: 2px; /* Điều chỉnh độ dày của gạch ngang */
