@@ -31,8 +31,25 @@ VALUES
 ('Fall 2025', '2025-09-10', '2026-01-15', 12);
 
 
-CREATE TABLE groups (
+CREATE TABLE groupes (
     id SERIAL PRIMARY KEY,
     group_name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE diem_ren_luyen (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    max_score DECIMAL(10, 2) NOT NULL, -- Điểm tối đa
+    student_self_assessment_score DECIMAL(10, 2) DEFAULT 0, -- Điểm sinh viên tự đánh giá
+    class_assessment_score DECIMAL(10, 2) DEFAULT 0, -- Điểm lớp đánh giá
+    evidence Text, -- Minh chứng
+    teacher_comments TEXT, -- Nhận xét của giáo viên
+    class_leader_comments TEXT, -- Nhận xét của ban cán sự
+    teacher_assessment_score DECIMAL(10, 2), -- Điểm giáo viên đánh giá
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Thời gian tạo
+    semester_id INT, -- ID học kỳ
+    user_id INT -- ID người dùng
+);
+

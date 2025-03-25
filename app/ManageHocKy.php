@@ -77,7 +77,7 @@ $semesters = Capsule::table('semester')->where('user_id', $user_id)->offset($off
                 <?php foreach ($semesters as $key => $semester): ?>
                     <tr>
                         <td><?= ++$key ?></td>
-                        <td><?= $semester->name ?></td>
+                        <td><a href="diem_ren_luyen.php?semester_id=<?= $semester->id ?>"><?= $semester->name ?></a> </td>
                         <td><?= $semester->point ?></td>
                     </tr>
                 <?php endforeach; ?>
