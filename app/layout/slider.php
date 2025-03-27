@@ -10,7 +10,7 @@
 
                 <li>
                     <div class="menu-item has-submenu">
-                        <a href="#"><i class="fas fa-user"></i> Kết quả điểm rèn luyện</a>
+                        <a href="/app/ManageHocKy.php"><i class="fas fa-user"></i> Kết quả điểm rèn luyện</a>
                         <div class="submenu">
                             <div class="submenu-item">Điểm rèn luyện của tôi</div>
                             <div class="submenu-item">Sinh viên tự đánh giá</div>
@@ -20,7 +20,7 @@
 
                 <li>
                     <div class="menu-item">
-                        <a href="#"><i class="fas fa-user"></i> Điểm rèn luyện của lớp</a>
+                        <a href="/app/diem_ren_luyen_lop.php"><i class="fas fa-user"></i> Điểm rèn luyện của lớp</a>
                     </div>
                 </li>
 

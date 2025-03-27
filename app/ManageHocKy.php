@@ -86,7 +86,7 @@ $semesters = Capsule::table('semester')->where('user_id', $user_id)->offset($off
     </div>
 </main>
 </div>
-<script src="../../public/fontawesome/all.min.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

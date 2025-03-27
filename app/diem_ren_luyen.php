@@ -73,7 +73,6 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)-
     </div>
 </main>
 </div>
-<script src="../../public/fontawesome/all.min.js" crossorigin="anonymous"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.getElementById("table-body");
