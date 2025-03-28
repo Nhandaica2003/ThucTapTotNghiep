@@ -17,6 +17,7 @@ body {
     color: white;
     padding: 40px;
     font-size: large;
+    height: 100vh;
 }
 .logo {
     width: 80px;
@@ -41,6 +42,9 @@ body {
 .menu a {
     text-decoration: none;
     color: white;
+    white-space: break-spaces;
+    width: 248px;
+    display: block;
 }
 #hoc-ky, #nam-hoc {
     border-radius: 5px; /* Điều chỉnh giá trị 5px để thay đổi độ cong của góc */

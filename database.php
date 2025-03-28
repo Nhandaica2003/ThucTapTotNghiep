@@ -27,3 +27,7 @@ function dd(...$data) {
     echo '</pre>';
     die(); // Dừng thực thi chương trình
 }
+
+const ROLE_BCS = "ban can su";
+const ROLE_SV = "sinh vien";
+const ROLE_GV = "giang vien";
