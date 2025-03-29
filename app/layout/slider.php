@@ -31,6 +31,11 @@ if ($user->role_name == ROLE_GV) {
                             </div>
                         </div>
                     </li>
+                    <li>
+                        <div class="menu-item">
+                            <a href="/app/quan_ly_hoc_ky.php"><i class="fas fa-user"></i> Quản lý học kỳ</a>
+                        </div>
+                    </li>
                 <?php } else { ?>
                     <li>
                         <div class="menu-item has-submenu">

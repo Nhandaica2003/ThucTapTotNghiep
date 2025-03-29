@@ -11,17 +11,18 @@ if(!$username || !$password){
     header('Location: login.php');
     die();
 }
+
 $user = Capsule::table('users')->where('username', $username)->first();
 if(!$user){
     $_SESSION['message'] = 'Tài khoản không tồn tại';
     header('Location: login.php');
     die();
 }
+
 if($user->password ==  md5($password)){
-    
     $_SESSION['user_id'] = $user->id;
     $_SESSION['username'] = $user->username;
-    header('Location: /app/ManageHocKy.php');
+    header('Location: /app/hockyhocsinh.php');
     die();
 }
 

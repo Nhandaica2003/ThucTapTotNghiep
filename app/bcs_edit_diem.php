@@ -15,10 +15,11 @@ if (empty($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
-$semester_id = $_GET['semester_id'] ?? 0;
-$semester = Capsule::table('semester')->where('id', $semester_id)->first();
-
-$diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)->where('semester_id', $semester_id)->get();
+$semester_name = $_GET['semester_name'] ?? 0;
+$user_id = $_GET['user_id'] ?? 0;
+$user_danh_gia = Capsule::table('users')->where('id', $user_id)->first();
+$semester = Capsule::table('semester')->where('name', $semester_name)->first();
+$diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)->where('semester_id', $semester_name)->get();
 
 
 ?>
@@ -34,10 +35,10 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)-
 <main class="content">
     <header class="header">
         <div class="container mt-5 d-flex">
-            <h4 class="">Sinh viên đánh giá điểm rèn luyện theo lớp- <?= $semester->name ?></h4>
-            <button class="btn btn-primary ms-2 text-end" id="btn-add">Thêm</button>
-            <button class="btn btn-primary ms-4 text-end" id="btn-edit">Xem lại</button>
-            <button class="btn btn-primary ms-4 text-end" id="btn-save">Lưu</button>
+            <h4 class=""><?= $user_danh_gia->full_name ?> - <?= $semester->name ?></h4>
+            <button class="btn btn-primary ms-2 text-end" id="btn-add">Nhận xét</button>
+            <button class="btn btn-primary ms-4 text-end" id="btn-edit">Cập nhật</button>
+            <button class="btn btn-primary ms-4 text-end" id="btn-save">Xem lại</button>
         </div>
     </header>
     <div class="table-container">
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <input type="file" class="form-control evidence-upload" name="evidence">
                     <input type="hidden" class="form-control evidence-link" name="evidence_link">
                 </td>
-                <td></td>
+                <td><input type="number" class="form-control" name="class_assessment_score"></td>
                 <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
             </tr>`;
         tableBody.insertAdjacentHTML("beforeend", newRow);
@@ -112,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <input type="file" class="form-control evidence-upload" name="evidence">
                     <input type="hidden" class="form-control evidence-link" value="${imagesrc}" name="evidence_link">
                 </td>
-                <td>${row.children[4].innerText}</td>
+                <td><input type="number" class="form-control" name="class_assessment_score" value="${row.children[4].innerText}"></td>
                 <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
             `;
         });

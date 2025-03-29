@@ -14,26 +14,13 @@ $semesters = Capsule::table('semester')
     ->whereIn('user_id', $users)
     ->where('name', $semester_name)->get();
 
-$semesterGroups =  Capsule::table('semester')->where('user_id', $user->id)->get();
 ?>
 <main class="content">
     <header class="header">
         <div class="container mt-5">
-            <form method="GET" action="">
-                <div class="row">
-                    <label class="form-label col-md-1" for="">Học kỳ:</label>
-                    <div class="col-md-4">
-                    <select class="form-select select_semester_name" name="semester_name" id="">
-                        <option value="">Chọn học kỳ</option>
-                        <?php foreach ($semesterGroups as $semesterGroup): ?>
-                            <option value="<?= $semesterGroup->name ?>" <?= $semester_name == $semesterGroup->name ? "selected" : "" ?>><?= $semesterGroup->name ?></option>
-                        <?php endforeach; ?>
-                    </select>   
-                    </div>
-                    
-                </div>
-            </form>
-            <h4 class="">Danh sách điểm rèn luyện</h4>
+
+            <h4 class=""><?= $semester_name ?></h4>
+                <h4 class="text-center">DANH SÁCH ĐIỂM RÈN LUYỆN</h4>
         </div>
     </header>
     <div class="table-container">
@@ -54,8 +41,8 @@ $semesterGroups =  Capsule::table('semester')->where('user_id', $user->id)->get(
                 <?php foreach ($semesters as $key => $semester): ?>
                     <tr>
                         <td><?= ++$key ?></td>
-                        <td><?= $semester->ma_sinh_vien ?></td>
-                        <td><?= $semester->full_name ?></td>
+                        <td> <?= $semester->ma_sinh_vien ?></td>
+                        <td><a href="/app/bcs_edit_diem.php?user_id=<?= $semester->user_id ?>&semester_name=<?= $semester->name ?>"><?= $semester->full_name ?></a></td>
                         <td><?= $semester->point ?></td>
                         <td><?= $semester->point_class ?></td>
                         <td><?= $semester->point_teacher ?></td>
