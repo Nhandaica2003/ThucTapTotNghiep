@@ -16,7 +16,7 @@ if(empty($_SESSION['user_id'])){
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
 $group = Capsule::table('groupes')->where('id', $user->group_id)->first();
-$semesters = Capsule::table('semester')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
+$semesters = Capsule::table('semester')->where('group_id', $user->group_id)->offset($offset)->limit($limit)->get();
 
 
 ?>

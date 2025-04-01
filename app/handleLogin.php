@@ -24,6 +24,10 @@ if($user->password ==  md5($password)){
     $_SESSION['username'] = $user->username;
     header('Location: /app/hockyhocsinh.php');
     die();
+}else{
+    $_SESSION['message'] = 'Mật khẩu không đúng';
+    header('Location: login.php');
+    die();
 }
 
 
