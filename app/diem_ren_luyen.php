@@ -51,7 +51,6 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
     <header class="header">
         <div class="container mt-5 d-flex">
             <h4 class="">Sinh viên đánh giá điểm rèn luyện theo lớp- <?= $semester->name ?></h4>
-            <button class="btn btn-primary ms-2 text-end" id="btn-add">Thêm</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-edit">Xem lại</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-save">Lưu</button>
         </div>
@@ -64,23 +63,20 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
                     <th>Điểm tối đa</th>
                     <th>Điểm sinh viên đánh giá (0)</th>
                     <th>Minh chứng</th>
-                    <th>Điểm lớp đánh giá (0)</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
             <tbody id="table-body">
                 <?php foreach ($diem_ren_luyens as $key => $diem_ren_luyen): ?>
                     <tr>
-                        <td><?= $diem_ren_luyen->name ?></td>
+                        <td data-id="<?= $diem_ren_luyen->id ?>" ><?= $diem_ren_luyen->name ?></td>
                         <td><?= $diem_ren_luyen->max_score ?></td>
                         <td><?= $diem_ren_luyen->student_self_assessment_score ?></td>
                         <td>
                             <?php if ($diem_ren_luyen->evidence): ?>
                                 <img style="height: 200px;" src="<?= $diem_ren_luyen->evidence ?>" alt="">
                             <?php endif; ?>
-
                         </td>
-                        <td><?= $diem_ren_luyen->class_assessment_score ?></td>
                         <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
                     </tr>
                 <?php endforeach; ?>
@@ -91,58 +87,31 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const tableBody = document.getElementById("table-body");
-
-        // Thêm hàng mới
-        document.getElementById("btn-add").addEventListener("click", function() {
-            const newRow = `
-            <tr>
-                <td><input type="text" class="form-control" name="name"></td>
-                <td><input type="number" class="form-control" name="max_score"></td>
-                <td><input type="number" class="form-control" name="student_self_assessment_score"></td>
-                <td>
-                    <input type="file" class="form-control evidence-upload" name="evidence">
-                    <input type="hidden" class="form-control evidence-link" name="evidence_link">
-                </td>
-                <td></td>
-                <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
-            </tr>`;
-            tableBody.insertAdjacentHTML("beforeend", newRow);
-        });
-
         // Xem lại (chuyển tất cả sang input)
         document.getElementById("btn-edit").addEventListener("click", function() {
             document.querySelectorAll("#table-body tr").forEach(row => {
-                let imageElement = row.children[3].querySelector("img");
-                imagesrc = "";
-                if (imageElement) {
-                    imagesrc = imageElement.src; // Lấy đường dẫn của ảnh
-                } else {
-                    console.log("Không tìm thấy ảnh!");
-                }
+                let imageElement = row.children[3]?.querySelector("img");
+                let imagesrc = imageElement ? imageElement.src : "";
+                
+                let id_diem_ren_luyen = row.querySelector('td')?.dataset.id || ""; 
+                console.log("ID điểm rèn luyện:", id_diem_ren_luyen);
                 row.innerHTML = `
-                <td><input type="text" class="form-control" name="name" value="${row.children[0].innerText}"></td>
+                <td data-id="${id_diem_ren_luyen}"><input type="text" class="form-control" name="name" value="${row.children[0].innerText}"></td>
                 <td><input type="number" class="form-control" name="max_score" value="${row.children[1].innerText}"></td>
                 <td><input type="number" class="form-control" name="student_self_assessment_score" value="${row.children[2].innerText}"></td>
                 <td>
                     <input type="file" class="form-control evidence-upload" name="evidence">
                     <input type="hidden" class="form-control evidence-link" value="${imagesrc}" name="evidence_link">
                 </td>
-                <td>${row.children[4].innerText}</td>
                 <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
             `;
             });
         });
 
-        // Xóa hàng
-        tableBody.addEventListener("click", function(event) {
-            if (event.target.classList.contains("btn-delete")) {
-                event.target.closest("tr").remove();
-            }
-        });
-
         // Lưu dữ liệu
         document.getElementById("btn-save").addEventListener("click", async function() {
+            console.log("Lưu dữ liệu");
+            // Kiểm tra dữ liệu
             let data = [];
             let fileUploads = document.querySelectorAll('.evidence-upload');
 
@@ -170,16 +139,17 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
 
             // Thu thập dữ liệu để gửi lên server
             document.querySelectorAll("#table-body tr").forEach(row => {
+                console.log(row.querySelector('td'));
                 let item = {
+                    id: row.querySelector('td').dataset.id,
                     name: row.querySelector('input[name="name"]').value,
                     max_score: row.querySelector('input[name="max_score"]').value,
                     student_self_assessment_score: row.querySelector('input[name="student_self_assessment_score"]').value,
                     evidence: row.querySelector('input[name="evidence_link"]').value,
-                    class_assessment_score: row.querySelector('input[name="class_assessment_score"]').value
                 };
+                console.log(item.id);
                 data.push(item);
             });
-
             fetch("save_diem_ren_luyen.php", {
                     method: "POST",
                     headers: {
