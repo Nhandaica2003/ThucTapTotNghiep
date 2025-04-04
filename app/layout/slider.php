@@ -20,17 +20,7 @@ if ($user->role_name == ROLE_GV) {
                     <span>Quản Lý Điểm Ngoại Khoá</span>
                 </div>
                 <div class="divider"></div>
-                <?php if ($user->role_name == ROLE_GV) { ?>
-                    <li>
-                        <div class="menu-item has-submenu">
-                            <a href="/app/ManageHocKy.php"><i class="fas fa-user"></i> Danh sách Khóa</a>
-                            <div class="submenu">
-                                <?php foreach ($khoas as $khoa) { ?>
-                                    <a href="/app/class_group.php?khoa_id=<?= $khoa->id ?>" class="submenu-item"><?= $khoa->name ?></a>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </li>
+                <?php if ($user->role_name == ROLE_ADMIN) { ?>
                     <li>
                         <div class="menu-item">
                             <a href="/app/quan_ly_hoc_ky.php"><i class="fas fa-user"></i> Quản lý học kỳ</a>
@@ -49,6 +39,17 @@ if ($user->role_name == ROLE_GV) {
                     <li>
                         <div class="menu-item">
                             <a href="/app/quan_ly_groupes.php"><i class="fas fa-user"></i> Quản lý lớp</a>
+                        </div>
+                    </li>
+                <?php } elseif ($user->role_name == ROLE_GV) { ?>
+                    <li>
+                        <div class="menu-item has-submenu">
+                            <a href="/app/ManageHocKy.php"><i class="fas fa-user"></i> Danh sách Khóa</a>
+                            <div class="submenu">
+                                <?php foreach ($khoas as $khoa) { ?>
+                                    <a href="/app/class_group.php?khoa_id=<?= $khoa->id ?>" class="submenu-item"><?= $khoa->name ?></a>
+                                <?php } ?>
+                            </div>
                         </div>
                     </li>
                 <?php } else { ?>
