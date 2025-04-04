@@ -15,13 +15,18 @@ if (empty($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
-$semester_id = $_GET['semester_id'] ?? 0;
-$semester = Capsule::table('semester')->where('id', $semester_id)->first();
 
-$diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)->where('semester_id', $semester_id)->get();
-
-$semesters = Capsule::table('semester')
-    ->where('user_id', $user->id)->get();
+$semesters = Capsule::table('semester')->leftJoin('semester_scores', 'semester_scores.semester_id', '=', 'semester.id')
+    ->select(
+        'semester.*',
+        'semester_scores.excellent_count',
+        'semester_scores.good_count',
+        'semester_scores.fairly_good_count',
+        'semester_scores.average_count',
+        'semester_scores.weak_count',
+        'semester_scores.poor_count'
+    )
+    ->where('semester.group_id', $user->group_id)->get();
 
 
 ?>
@@ -55,16 +60,16 @@ $semesters = Capsule::table('semester')
                 </tr>
             </thead>
             <tbody id="table-body">
-            <?php foreach ($semesters as $key => $semester): ?>
+                <?php foreach ($semesters as $key => $semester): ?>
                     <tr>
                         <td><?= ++$key ?></td>
-                        <td><a href="ky_detail_bcs.php?semester_name=<?= $semester->name ?>"><?= $semester->name ?></a> </td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point ?></td>
+                        <td><a href="ky_detail_bcs.php?semester_id=<?= $semester->id ?>"><?= $semester->name ?></a> </td>
+                        <td><?= $semester->excellent_count ?: 0 ?></td>
+                        <td><?= $semester->good_count ?: 0 ?></td>
+                        <td><?= $semester->fairly_good_count ?: 0 ?></td>
+                        <td><?= $semester->average_count ?: 0 ?></td>
+                        <td><?= $semester->weak_count ?: 0 ?></td>
+                        <td><?= $semester->poor_count ?: 0 ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

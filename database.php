@@ -31,3 +31,4 @@ function dd(...$data) {
 const ROLE_BCS = "ban can su";
 const ROLE_SV = "sinh vien";
 const ROLE_GV = "giang vien";
+const ROLE_ADMIN = "admin";

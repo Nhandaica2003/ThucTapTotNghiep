@@ -63,7 +63,6 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
                     <th>Điểm tối đa</th>
                     <th>Điểm sinh viên đánh giá (0)</th>
                     <th>Minh chứng</th>
-                    <th>Hành động</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -77,7 +76,6 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
                                 <img style="height: 200px;" src="<?= $diem_ren_luyen->evidence ?>" alt="">
                             <?php endif; ?>
                         </td>
-                        <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

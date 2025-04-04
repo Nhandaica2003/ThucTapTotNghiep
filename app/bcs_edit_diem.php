@@ -4,10 +4,6 @@ include_once "../database.php";
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 10;
-$offset = ($page - 1) * $limit;
-
 // get dữ liệu
 if (empty($_SESSION['user_id'])) {
     header('Location: /app/login.php');
@@ -15,11 +11,32 @@ if (empty($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
-$semester_name = $_GET['semester_name'] ?? 0;
-$user_id = $_GET['user_id'] ?? 0;
-$user_danh_gia = Capsule::table('users')->where('id', $user_id)->first();
-$semester = Capsule::table('semester')->where('name', $semester_name)->first();
-$diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)->where('semester_id', $semester_name)->get();
+$user_id_danh_gia = $_GET['user_id'] ?? null;
+if (empty($user_id_danh_gia)) {
+    die("Lỗi: user_id không được để trống!");
+}
+$user_danh_gia = Capsule::table('users')->where('id', $user_id_danh_gia)->first();
+$semester_id = isset($_GET['semester_id']) ? $_GET['semester_id'] : null;
+$semester = Capsule::table('semester')->where('id', $semester_id)->first();
+if (empty($semester_id)) {
+    die("Lỗi: semester_id không được để trống!");
+}
+$diem_ren_luyens = Capsule::table('diem_ren_luyen')
+    ->select(
+        'diem_ren_luyen.*',
+        'diem_ren_luyen_user_id.student_self_assessment_score',
+        'diem_ren_luyen_user_id.class_assessment_score',
+        'diem_ren_luyen_user_id.evidence'
+    )
+    ->leftJoin(
+        'diem_ren_luyen_user_id',
+        function ($join) use ($user_id) {
+            $join->on('diem_ren_luyen_user_id.diem_ren_luyen_id', '=', 'diem_ren_luyen.id')
+                ->where('diem_ren_luyen_user_id.user_id', '=', $user_id);
+        }
+    )
+    ->where('diem_ren_luyen.semester_id', $semester_id)
+    ->get();
 
 
 ?>
@@ -36,7 +53,7 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)-
     <header class="header">
         <div class="container mt-5 d-flex">
             <h4 class=""><?= $user_danh_gia->full_name ?> - <?= $semester->name ?></h4>
-            <button class="btn btn-primary ms-2 text-end" id="btn-add">Nhận xét</button>
+            <button class="btn btn-primary ms-2 text-end"  data-bs-toggle="modal" data-bs-target="#btn-comment">Nhận xét</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-edit">Cập nhật</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-save">Xem lại</button>
         </div>
@@ -50,7 +67,6 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)-
                     <th>Điểm sinh viên đánh giá (0)</th>
                     <th>Minh chứng</th>
                     <th>Điểm lớp đánh giá (0)</th>
-                    <th>Hành động</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -66,7 +82,6 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)-
 
                         </td>
                         <td><?= $diem_ren_luyen->class_assessment_score ?></td>
-                        <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -74,26 +89,24 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')->where('user_id', $user_id)-
     </div>
 </main>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="btn-comment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header border-0">
+        <h5 class="modal-title mx-auto" id="exampleModalLabel">Nhận xét</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control" rows="5"  placeholder="Chưa đáp ứng đủ tiêu chí"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.getElementById("table-body");
-
-    // Thêm hàng mới
-    document.getElementById("btn-add").addEventListener("click", function() {
-        const newRow = `
-            <tr>
-                <td><input type="text" class="form-control" name="name"></td>
-                <td><input type="number" class="form-control" name="max_score"></td>
-                <td><input type="number" class="form-control" name="student_self_assessment_score"></td>
-                <td>
-                    <input type="file" class="form-control evidence-upload" name="evidence">
-                    <input type="hidden" class="form-control evidence-link" name="evidence_link">
-                </td>
-                <td><input type="number" class="form-control" name="class_assessment_score"></td>
-                <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
-            </tr>`;
-        tableBody.insertAdjacentHTML("beforeend", newRow);
-    });
 
     // Xem lại (chuyển tất cả sang input)
     document.getElementById("btn-edit").addEventListener("click", function() {
@@ -107,23 +120,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             row.innerHTML = `
                 <td><input type="text" class="form-control" name="name" value="${row.children[0].innerText}"></td>
-                <td><input type="number" class="form-control" name="max_score" value="${row.children[1].innerText}"></td>
-                <td><input type="number" class="form-control" name="student_self_assessment_score" value="${row.children[2].innerText}"></td>
-                <td>
-                    <input type="file" class="form-control evidence-upload" name="evidence">
-                    <input type="hidden" class="form-control evidence-link" value="${imagesrc}" name="evidence_link">
-                </td>
+                <td><input type="number" class="form-control" readonly name="max_score" value="${row.children[1].innerText}"></td>
+                <td><input type="number" class="form-control" readonly name="student_self_assessment_score" value="${row.children[2].innerText}"></td>
+                <td></td>
                 <td><input type="number" class="form-control" name="class_assessment_score" value="${row.children[4].innerText}"></td>
-                <td><button class="btn btn-danger btn-sm btn-delete">Xóa</button></td>
             `;
         });
-    });
-
-    // Xóa hàng
-    tableBody.addEventListener("click", function(event) {
-        if (event.target.classList.contains("btn-delete")) {
-            event.target.closest("tr").remove();
-        }
     });
 
     // Lưu dữ liệu
@@ -131,35 +133,12 @@ document.addEventListener("DOMContentLoaded", function() {
         let data = [];
         let fileUploads = document.querySelectorAll('.evidence-upload');
 
-        // Upload file trước
-        for (let i = 0; i < fileUploads.length; i++) {
-            let fileInput = fileUploads[i];
-            if (fileInput.files.length > 0) {
-                let formData = new FormData();
-                formData.append("evidence", fileInput.files[0]);
-
-                let response = await fetch("upload.php", {
-                    method: "POST",
-                    body: formData
-                });
-
-                let result = await response.json();
-                if (result.success) {
-                    fileInput.nextElementSibling.value = result.file_url;
-                } else {
-                    alert("Upload file thất bại!");
-                    return;
-                }
-            }
-        }
-
         // Thu thập dữ liệu để gửi lên server
         document.querySelectorAll("#table-body tr").forEach(row => {
             let item = {
                 name: row.querySelector('input[name="name"]').value,
                 max_score: row.querySelector('input[name="max_score"]').value,
                 student_self_assessment_score: row.querySelector('input[name="student_self_assessment_score"]').value,
-                evidence: row.querySelector('input[name="evidence_link"]').value,
                 class_assessment_score: row.querySelector('input[name="class_assessment_score"]').value
             };
             data.push(item);

@@ -7,19 +7,41 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
 $users = Capsule::table('users')->where('group_id', $user->group_id)->pluck('id');
-$semester_name = $_GET['semester_name'] ?? "";
+$semester_id = $_GET['semester_id'] ?? "";
+$semester = Capsule::table('semester')->where('id', $semester_id)->first();
+if(!$semester){
+    header('Location: /app/bcs_diem.php');
+    die();
+}
 
-$semesters = Capsule::table('semester')
-    ->leftJoin("users", "semester.user_id", "=", "users.id")
-    ->whereIn('user_id', $users)
-    ->where('name', $semester_name)->get();
+$users = Capsule::table('users')
+    ->select(
+        'users.*',
+        Capsule::raw('SUM(diem_ren_luyen_user_id.student_self_assessment_score) as total_student_self_score'),
+        Capsule::raw('SUM(diem_ren_luyen_user_id.class_assessment_score) as total_class_score'),
+        Capsule::raw('SUM(diem_ren_luyen_user_id.teacher_assessment_score) as total_teacher_assessment_score'),
+        Capsule::raw('ANY_VALUE(comments.comment_teacher) as comment_teacher'),
+        Capsule::raw('ANY_VALUE(comments.comment_bcs) as comment_bcs')
+    )
+    ->leftJoin('diem_ren_luyen_user_id', function ($join) use ($semester_id) {
+        $join->on('diem_ren_luyen_user_id.user_id', '=', 'users.id')
+             ->where('diem_ren_luyen_user_id.semester_id', '=', $semester_id);
+    })
+    ->leftJoin('comments', function ($join) use ($semester_id) {
+        $join->on('comments.user_id', '=', 'users.id')
+             ->where('comments.semester_id', '=', $semester_id);
+    })
+    ->where('users.group_id', $user->group_id)
+    ->groupBy('users.id')
+    ->get();
+
 
 ?>
 <main class="content">
     <header class="header">
         <div class="container mt-5">
 
-            <h4 class=""><?= $semester_name ?></h4>
+            <h4 class=""><?= $semester->name ?></h4>
                 <h4 class="text-center">DANH SÁCH ĐIỂM RÈN LUYỆN</h4>
         </div>
     </header>
@@ -38,16 +60,16 @@ $semesters = Capsule::table('semester')
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php foreach ($semesters as $key => $semester): ?>
+                <?php foreach ($users as $key => $user): ?>
                     <tr>
                         <td><?= ++$key ?></td>
-                        <td> <?= $semester->ma_sinh_vien ?></td>
-                        <td><a href="/app/bcs_edit_diem.php?user_id=<?= $semester->user_id ?>&semester_name=<?= $semester->name ?>"><?= $semester->full_name ?></a></td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point_class ?></td>
-                        <td><?= $semester->point_teacher ?></td>
-                        <td><button value="<?= $semester->comment_teacher ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
-                        <td><button value="<?= $semester->comment_bcs ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
+                        <td> <?= $user->ma_sinh_vien ?></td>
+                        <td><a href="/app/bcs_edit_diem.php?user_id=<?= $user->id ?>&semester_id=<?= $semester->id ?>"><?= $user->full_name ?></a></td>
+                        <td><?= $user->total_student_self_score ?:0 ?></td>
+                        <td><?= $user->total_class_score ?:0 ?></td>
+                        <td><?= $user->total_teacher_assessment_score ?:0 ?></td>
+                        <td><button value="<?= $user->comment_teacher ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
+                        <td><button value="<?= $user->comment_bcs ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
