@@ -23,22 +23,19 @@ if ($user->role_name == ROLE_GV) {
                 <?php if ($user->role_name == ROLE_ADMIN) { ?>
                     <li>
                         <div class="menu-item">
-                            <a href="/app/quan_ly_hoc_ky.php"><i class="fas fa-user"></i> Quản lý học kỳ</a>
+                            <a href="/app/quan_ly_form_danh_gia.php"><i class="fas fa-user"></i> Quản lý form đánh giá </a>
                         </div>
                     </li>
                     <li>
-                        <div class="menu-item">
-                            <a href="/app/quan_ly_sinh_vien.php"><i class="fas fa-user"></i> Quản lý sinh viên</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="menu-item">
-                            <a href="/app/quan_ly_khoa.php"><i class="fas fa-user"></i> Quản lý Khóa</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="menu-item">
-                            <a href="/app/quan_ly_groupes.php"><i class="fas fa-user"></i> Quản lý lớp</a>
+                        <div class="menu-item  has-submenu">
+                            <a href="/app/quan_ly_hoc_ky.php"><i class="fas fa-user"></i> Quản lý Tài khoản</a>
+                            <div class="submenu">
+                                <a href="/app/quan_ly_hoc_ky.php" class="submenu-item">Danh sách sinh viên</a>
+                                <a href="/app/quan_ly_bcs.php" class="submenu-item">Danh sách BCS</a>
+                                <a href="/app/quan_ly_gvcn.php" class="submenu-item">Danh sách GVCN</a>
+                                <a href="/app/quan_ly_khoa.php" class="submenu-item">Quản lý khóa</a>
+                                <a href="/app/quan_ly_groupes.php" class="submenu-item">Quản lý lớp</a>
+                            </div>
                         </div>
                     </li>
                 <?php } elseif ($user->role_name == ROLE_GV) { ?>
