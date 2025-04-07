@@ -12,7 +12,7 @@ if (empty($_SESSION['user_id'])) {
     header('Location: /app/login.php');
     die();
 }
-
+$group_id = $_GET['group_id'] ?? null; // Lấy group_id từ session nếu có
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
 $total = Capsule::table('users')->count();
@@ -20,8 +20,9 @@ $users = Capsule::table('users')
     ->leftJoin('groupes', 'groupes.id', '=', 'users.group_id') // Sửa lại điều kiện join
     ->select('users.*', 'groupes.group_name as group_name')
     ->offset($offset)
-    ->limit($limit)
-    ->get();
+    ->limit($limit);
+$users = $users->where("users.group_id", "=", $group_id); // Lọc theo group_id
+$users = $users->get();
 
 $total_pages = ceil($total / $limit);
 
@@ -47,7 +48,7 @@ $groupes = Capsule::table('groupes')->get();
     <header class="header">
         <div class="container mt-5">
             <h4 class="text-center">Quản Lý Sinh Viên</h4>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Học kỳ</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Sinh viên</button>
         </div>
     </header>
     <div class="table-container">
@@ -87,9 +88,9 @@ $groupes = Capsule::table('groupes')->get();
                                 data-role_name="<?= $user->role_name ?>"
                                 data-he-dao-tao="<?= $user->he_dao_tao ?>"
                                 data-group_id="<?= $user->group_id ?>">
-                                Edit
+                                Thay đổi
                             </button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $user->id ?>">Delete</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $user->id ?>">Xóa</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -136,7 +137,7 @@ $groupes = Capsule::table('groupes')->get();
                 <select name="" class="form-select" id="newGroup">
                     <option value="">Chọn Lớp</option>
                     <?php foreach ($groupes as $group): ?>
-                        <option value="<?= $group->id ?>"><?= $group->group_name ?></option>
+                        <option value="<?= $group->id ?>" <?= $group_id == $group->id ? "selected" : ""  ?>><?= $group->group_name ?></option>
                     <?php endforeach; ?>
                 </select>
 
@@ -160,8 +161,8 @@ $groupes = Capsule::table('groupes')->get();
 </div>
 
 
-<!-- Modal Edit -->
-<!-- Modal Edit -->
+<!-- Modal Thay đổi -->
+<!-- Modal Thay đổi -->
 <div class="modal fade" id="editModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -189,7 +190,7 @@ $groupes = Capsule::table('groupes')->get();
                 <select name="" class="form-select" id="editGroup">
                     <option value="">Chọn Lớp</option>
                     <?php foreach ($groupes as $group): ?>
-                        <option value="<?= $group->id ?>"><?= $group->group_name ?></option>
+                        <option value="<?= $group->id ?>" <?= $group_id == $group->id ? "selected" : "" ><?= $group->group_name ?></option>
                     <?php endforeach; ?>
                 </select>
 
@@ -212,7 +213,7 @@ $groupes = Capsule::table('groupes')->get();
 </div>
 
 
-<!-- Modal Delete -->
+<!-- Modal Xóa -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -242,7 +243,7 @@ $groupes = Capsule::table('groupes')->get();
             var birthday = button.getAttribute("data-birthday");
             var roleName = button.getAttribute("data-role_name");
             var groupId = button.getAttribute("data-group_id");
-            var editHeDaoTao = button.getAttribute("data-he-dao-tao"); 
+            var editHeDaoTao = button.getAttribute("data-he-dao-tao");
 
             document.getElementById("editStudentId").value = id;
             document.getElementById("editStudentName").value = name;
@@ -282,7 +283,7 @@ $groupes = Capsule::table('groupes')->get();
                 ma_sinh_vien: $("#newStudentId").val(),
                 full_name: $("#newStudentName").val(),
                 username: $("#newUsername").val(),
-                role_name: $("#newRole").val(),  // Thêm quyền
+                role_name: $("#newRole").val(), // Thêm quyền
                 group_id: $("#newGroup").val(), // Thêm lớp
                 chuyennganh: $("#newMajor").val(),
                 birthday: $("#newBirthday").val(),

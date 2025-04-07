@@ -30,7 +30,7 @@ if ($user->role_name == ROLE_GV) {
                         <div class="menu-item  has-submenu">
                             <a href="/app/quan_ly_hoc_ky.php"><i class="fas fa-user"></i> Quản lý Tài khoản</a>
                             <div class="submenu">
-                                <a href="/app/quan_ly_hoc_ky.php" class="submenu-item">Danh sách sinh viên</a>
+                                <a href="/app/quan_ly_hoc_ky.php" class="submenu-item">Danh sách Học kỳ</a>
                                 <a href="/app/quan_ly_bcs.php" class="submenu-item">Danh sách BCS</a>
                                 <a href="/app/quan_ly_gvcn.php" class="submenu-item">Danh sách GVCN</a>
                                 <a href="/app/quan_ly_khoa.php" class="submenu-item">Quản lý khóa</a>

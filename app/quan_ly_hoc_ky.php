@@ -56,8 +56,8 @@ $total_pages = ceil($total / $limit);
                         <td><?= $offset + $key + 1 ?></td>
                         <td><a href="diem_ren_luyen.php?semester_id=<?= $semester->id ?>"><?= $semester->name ?></a></td>
                         <td>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= $semester->id ?>" data-name="<?= $semester->name ?>">Edit</button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $semester->id ?>">Delete</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= $semester->id ?>" data-name="<?= $semester->name ?>">Thay đổi</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $semester->id ?>">Xóa</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -94,7 +94,7 @@ $total_pages = ceil($total / $limit);
     </div>
 </div>
 
-<!-- Modal Edit -->
+<!-- Modal Thay đổi -->
 <div class="modal fade" id="editModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -114,7 +114,7 @@ $total_pages = ceil($total / $limit);
     </div>
 </div>
 
-<!-- Modal Delete -->
+<!-- Modal Xóa -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">

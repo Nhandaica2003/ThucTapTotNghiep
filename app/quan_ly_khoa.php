@@ -35,9 +35,9 @@ $courses = Capsule::table('khoa')->get();
                                 data-bs-toggle="modal" data-bs-target="#editCourseModal"
                                 data-id="<?= $course->id ?>"
                                 data-name="<?= $course->name ?>">
-                                Edit
+                                Thay đổi
                             </button>
-                            <button class="btn btn-danger deleteCourseBtn" data-id="<?= $course->id ?>">Delete</button>
+                            <button class="btn btn-danger deleteCourseBtn" data-id="<?= $course->id ?>">Xóa</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -64,7 +64,7 @@ $courses = Capsule::table('khoa')->get();
         </div>
     </div>
 </div>
-<!-- Modal Edit -->
+<!-- Modal Thay đổi -->
 <div class="modal fade" id="editCourseModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">

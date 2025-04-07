@@ -34,7 +34,9 @@ $groups = Capsule::table('groupes')
                 <?php foreach ($groups as $group): ?>
                     <tr>
                         <td><?= $group->id ?></td>
-                        <td><?= $group->group_name ?></td>
+                        <td>
+                            <a href="/app/quan_ly_sinh_vien.php?group_id=<?= $group->id  ?>"><?= $group->group_name ?></a>
+                            </td>
                         <td><?= $group->course_name ?></td>
                         <td><?= $group->created_at ?></td>
                         <td>
@@ -43,9 +45,9 @@ $groups = Capsule::table('groupes')
                                 data-id="<?= $group->id ?>"
                                 data-name="<?= $group->group_name ?>"
                                 data-khoa="<?= $group->khoa_id ?>">
-                                Edit
+                                Thay đổi
                             </button>
-                            <button class="btn btn-danger deleteGroupBtn" data-id="<?= $group->id ?>">Delete</button>
+                            <button class="btn btn-danger deleteGroupBtn" data-id="<?= $group->id ?>">Xóa</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -80,7 +82,7 @@ $groups = Capsule::table('groupes')
         </div>
     </div>
 </div>
-<!-- Modal Edit -->
+<!-- Modal Thay đổi -->
 <div class="modal fade" id="editGroupModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
