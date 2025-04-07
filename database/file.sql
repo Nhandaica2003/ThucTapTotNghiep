@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `diem_ren_luyen` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.diem_ren_luyen: ~167 rows (approximately)
+-- Dumping data for table nhan.diem_ren_luyen: ~50 rows (approximately)
 INSERT INTO `diem_ren_luyen` (`id`, `name`, `max_score`, `created_at`, `semester_id`, `parent_id`) VALUES
 	(118, 'a) Ý thức và thái độ trong học tập', 4.00, '2025-04-01 03:46:40', 29, 0),
 	(119, '- Có đi học chuyên cần, đúng giờ, nghiêm túc trong giờ học; đủ điều kiện dự thi tất cả các học phần\n (Không đủ điều kiện dự thi 01 học phần bị trừ 02 điểm. Không đủ điều kiện dự thi từ 02 học phần trở lên bị trừ hết số điểm còn lại của tiêu chí)', 4.00, '2025-04-01 03:46:40', 29, 0),
@@ -164,12 +164,12 @@ CREATE TABLE IF NOT EXISTS `form_danh_gia` (
   `max_score` int DEFAULT NULL,
   `parent_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.form_danh_gia: ~45 rows (approximately)
+-- Dumping data for table nhan.form_danh_gia: ~46 rows (approximately)
 INSERT INTO `form_danh_gia` (`id`, `name`, `max_score`, `parent_id`) VALUES
 	(127, '1. Đánh giá về ý thức học tập', 4, 0),
-	(128, 'a) Ý thức và thái độ trong học tập', 4, 127),
+	(128, 'a) Ý thức và thái độ trong học tập', 9, 127),
 	(129, '- Có đi học chuyên cần, đúng giờ, nghiêm túc trong giờ học; đủ điều kiện dự thi tất cả các học phần\n (Không đủ điều kiện dự thi 01 học phần bị trừ 02 điểm. Không đủ điều kiện dự thi từ 02 học phần trở lên bị trừ hết số điểm còn lại của tiêu chí)', 4, 127),
 	(130, 'b. Ý thức và thái độ tham gia các câu lạc bộ học thuật, hoạt động học thuật, hoạt động ngoại khoá, hoạt động nghiên cứu khoa học', 4, 127),
 	(131, '- Có đăng ký, thực hiện, báo cáo đề tài nghiên cứu khoa học đúng tiến độ hoặc có đăng ký, tham dự kỳ thi sinh viên giỏi các cấp', 2, 127),
@@ -212,7 +212,8 @@ INSERT INTO `form_danh_gia` (`id`, `name`, `max_score`, `parent_id`) VALUES
 	(172, 'c) Hỗ trợ và tham gia tích cực các hoạt động chung của tập thể lớp, khoa, trường và ĐHĐN', 3, 167),
 	(173, '- Hỗ trợ và tham gia tích cực các hoạt động chung của tập thể lớp, khoa, trường và ĐHĐN', 3, 167),
 	(174, 'd) Đạt được thành tích trong học tập, rèn luyện', 2, 167),
-	(175, '- Đạt thành tích trong học tập, rèn luyện (được tặng bằng khen, giấy khen, chứng nhận, thư khen của các cấp)', 2, 167);
+	(175, '- Đạt thành tích trong học tập, rèn luyện (được tặng bằng khen, giấy khen, chứng nhận, thư khen của các cấp)', 2, 167),
+	(178, '2222', 0, 0);
 
 -- Dumping structure for table nhan.groupes
 CREATE TABLE IF NOT EXISTS `groupes` (
@@ -248,6 +249,24 @@ INSERT INTO `khoa` (`id`, `name`, `created_at`) VALUES
 	(2, 'Khóa 49k', '2025-03-28 14:05:45'),
 	(3, 'Khóa 48K', '2025-03-28 14:06:03'),
 	(4, 'Khóa 47K', '2025-03-28 14:06:20');
+
+-- Dumping structure for table nhan.lop_chu_nhiem
+CREATE TABLE IF NOT EXISTS `lop_chu_nhiem` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `group_id` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table nhan.lop_chu_nhiem: ~6 rows (approximately)
+INSERT INTO `lop_chu_nhiem` (`id`, `user_id`, `group_id`, `created_at`) VALUES
+	(8, 1, 4, '2025-04-06 06:08:49'),
+	(9, 1, 8, '2025-04-06 06:08:49'),
+	(12, 6, 3, '2025-04-06 06:10:54'),
+	(13, 6, 4, '2025-04-06 06:10:54'),
+	(14, 7, 3, '2025-04-06 06:14:56'),
+	(15, 7, 7, '2025-04-06 06:14:56');
 
 -- Dumping structure for table nhan.semester
 CREATE TABLE IF NOT EXISTS `semester` (
@@ -298,14 +317,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.users: ~3 rows (approximately)
+-- Dumping data for table nhan.users: ~6 rows (approximately)
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `role_name`, `group_id`, `chuyennganh`, `he_dao_tao`, `full_name`, `birthday`, `ma_sinh_vien`) VALUES
-	(1, 'nguyenvana@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'ban can su', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn B', '2005-03-08', '14551231222'),
-	(2, 'dungtn@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'sinh vien', 1, 'Hệ thống thông tin', 'Chính quy', 'Nguyễn Ngọc Dũng', '2025-03-24', '14551231221'),
-	(3, 'hoangngoclan@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'sinh vien', 1, 'Hệ thống thông tin', 'Chính quy', 'Hoàng Ngọc Lan', '2025-03-24', '12512151231'),
-	(4, 'hungrandy', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-31 03:19:01', 'sinh vien', 3, 'Công Nghệ thông tin', 'Chính quy', 'Lê Quốc Hưng', '2001-01-15', '152155322');
+	(1, 'nguyenvana@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'giang vien', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn B', '2005-03-08', '14551231222'),
+	(4, 'hungrandy', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-31 03:19:01', 'sinh vien', 3, 'Công Nghệ thông tin', 'Chính quy', 'Lê Quốc Hưng', '2001-01-15', '152155322'),
+	(6, 'nguyenvanc@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:10:54', 'sinh vien', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn D', '2025-04-02', NULL),
+	(7, 'nguyenvana2w@gmail.com', 'e2a1715ac00b5e872a2191fb13f69a69', '2025-04-06 06:14:56', 'giang vien', NULL, NULL, NULL, 'Nguyễn Văn Lan', NULL, NULL),
+	(8, 'bancansua@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:24:15', 'ban can su', NULL, NULL, NULL, 'Ban can su a', NULL, NULL),
+	(9, 'bancansu2@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:31:12', 'ban can su', 4, NULL, NULL, 'Ban can su C', NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
