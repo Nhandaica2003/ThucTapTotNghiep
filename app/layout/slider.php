@@ -7,7 +7,13 @@ $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
 $khoas = [];
 if ($user->role_name == ROLE_GV) {
-    $khoas = Capsule::table('khoa')->get();
+    $khoas = Capsule::table('khoa')
+    ->join('groupes', 'khoa.id', '=', 'groupes.khoa_id')
+    ->join('lop_chu_nhiem', 'groupes.id', '=', 'lop_chu_nhiem.group_id')
+    ->where('lop_chu_nhiem.user_id', $user_id)
+    ->select('khoa.*')
+    ->groupBy('khoa.id')
+    ->get();
 }
 ?>
 

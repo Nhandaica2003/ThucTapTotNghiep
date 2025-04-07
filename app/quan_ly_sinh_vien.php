@@ -190,7 +190,7 @@ $groupes = Capsule::table('groupes')->get();
                 <select name="" class="form-select" id="editGroup">
                     <option value="">Chọn Lớp</option>
                     <?php foreach ($groupes as $group): ?>
-                        <option value="<?= $group->id ?>" <?= $group_id == $group->id ? "selected" : "" ><?= $group->group_name ?></option>
+                        <option value="<?= $group->id ?>" <?= $group_id == $group->id ? "selected" : "" ?>><?= $group->group_name ?></option>
                     <?php endforeach; ?>
                 </select>
 
