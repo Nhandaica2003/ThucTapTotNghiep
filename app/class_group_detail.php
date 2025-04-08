@@ -12,6 +12,7 @@ if (!$group_id) {
 $semester_id = $_GET['semester_id'] ?? null;
 
 $users = Capsule::table('users')->where('group_id', $group_id);
+$users = $users->select("users.*", 'duyets.diem_gv_cham', 'duyets.xep_loai', 'duyets.nhan_xet', 'duyets.duyet');
 if ($semester_id) {
     $users = $users->leftJoin('duyets', function ($join) use ($semester_id) {
         $join->on('users.id', '=', 'duyets.user_id')
@@ -82,8 +83,8 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                     <tr>
                         <td><?= $index + 1 ?></td>
                         <td><?= $user->ma_sinh_vien ?></td>
-                        <td><?= $user->full_name ?></td>
-                        <td><?= date('d/m/Y', strtotime($user->birthday)) ?></td>
+                        <td><a href="/app/diem_ren_luyen_gvcn.php?user_id=<?= $user->id ?>&semester_id=<?= $semester_id ?>"><?= $user->full_name ?></a> </td>
+                        <td><?= $user->birthday? date('d/m/Y', strtotime($user->birthday)): "" ?></td>
                         <td><?= $user->diem_gv_cham ?? "" ?></td>
                         <td><?= $user->xep_loai ?? "" ?></td>
                         <td><?= $user->nhan_xet ?? "" ?></td>

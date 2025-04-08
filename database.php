@@ -42,9 +42,20 @@ const ARRAY_XEP_LOAI = [
     'yếu',
     'kém'
 ];
-const XS = [95, 100];
-const GIOI = [81, 94];
-const KHA = [71, 80];
-const TBK = [60, 70];
-const TB = [50, 59];
-const YEU = [30, 49];
+class XepLoaiRange {
+    const XS   = [95, 100];
+    const GIOI = [81, 94];
+    const KHA  = [71, 80];
+    const TBK  = [60, 70];
+    const TB   = [50, 59];
+    const YEU  = [30, 49];
+}
+function getXepLoai($point) {
+    if ($point >= XepLoaiRange::XS[0] && $point <= XepLoaiRange::XS[1]) return "Xuất Sắc";
+    if ($point >= XepLoaiRange::GIOI[0] && $point <= XepLoaiRange::GIOI[1]) return "Giỏi";
+    if ($point >= XepLoaiRange::KHA[0] && $point <= XepLoaiRange::KHA[1]) return "Khá";
+    if ($point >= XepLoaiRange::TBK[0] && $point <= XepLoaiRange::TBK[1]) return "Trung Bình Khá";
+    if ($point >= XepLoaiRange::TB[0] && $point <= XepLoaiRange::TB[1]) return "Trung Bình";
+    if ($point >= XepLoaiRange::YEU[0] && $point <= XepLoaiRange::YEU[1]) return "Yếu";
+    return "Kém";
+}

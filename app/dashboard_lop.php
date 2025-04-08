@@ -48,7 +48,7 @@ $duyets = $duyets->get();
     </div>
 </main>
 <script>
-      const chartData = <?php echo json_encode($duyets); ?>;
+    const chartData = <?php echo json_encode($duyets); ?>;
     const ctx = document.getElementById('chartCanvas').getContext('2d');
   // Tạo labels và data từ Laravel
   const labels = chartData.map(item => item.xep_loai);
