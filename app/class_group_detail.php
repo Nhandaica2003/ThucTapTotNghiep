@@ -9,8 +9,16 @@ if (!$group_id) {
     header("Location: /app/class_group.php");
     exit;
 }
+$semester_id = $_GET['semester_id'] ?? null;
 
-$users = Capsule::table('users')->where('group_id', $group_id)->get();
+$users = Capsule::table('users')->where('group_id', $group_id);
+if ($semester_id) {
+    $users = $users->leftJoin('duyets', function ($join) use ($semester_id) {
+        $join->on('users.id', '=', 'duyets.user_id')
+            ->where('duyets.semester_id', '=', $semester_id);
+    });
+}
+$users = $users->get();
 $group = Capsule::table('groupes')->where('id', $group_id)->first();
 if (!$group) {
     header("Location: /app/class_group.php");
@@ -41,12 +49,14 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
             <div>
                 <label for="semester" class="form-label me-2">Học kỳ:</label>
                 <select class="form-select d-inline-block" id="semester">
-                    <option selected>Học kỳ II năm 2024-2025</option>
-                    <!-- Add more options here -->
+                    <option value="">Làm ơn chọn Học kỳ</option>
+                    <?php foreach ($semester as $sem):  ?>
+                        <option value='<?= $sem->id ?>' <?= !empty($semester_id) && $semester_id == $sem->id ? "selected" :"" ?>><?= $sem->name ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div>
-                <button class="btn btn-primary me-2 ms-4">Dashboard</button>
+                <a href="/app/dashboard_lop.php?group_id=<?=$group_id?>&semester_id=<?= $semester_id ?>" class="btn btn-primary me-2 ms-4">Dashboard</a>
                 <button class="btn btn-success me-2 ms-2">Export</button>
                 <button class="btn btn-info text-white ms-2">Duyệt</button>
             </div>
@@ -59,7 +69,6 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                 <tr>
                     <th>STT</th>
                     <th>Mã sinh viên</th>
-                    <th>Họ và tên lót</th>
                     <th>Tên</th>
                     <th>Ngày sinh</th>
                     <th>Điểm GV chấm</th>
@@ -69,36 +78,33 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                 </tr>
             </thead>
             <tbody>
-                <!-- Dòng mẫu -->
-                <tr>
-                    <td>1</td>
-                    <td>211121521138</td>
-                    <td>Nguyễn Minh</td>
-                    <td>Phượng</td>
-                    <td>01/01/2003</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input class="form-check-input" type="checkbox"></td>
-                </tr>
-                <!-- Lặp dòng dữ liệu -->
-                <!-- Bạn có thể dùng vòng lặp backend để render thêm dòng -->
-                <tr>
-                    <td>1</td>
-                    <td>211121521138</td>
-                    <td>Nguyễn Minh</td>
-                    <td>Phượng</td>
-                    <td>01/01/2003</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input class="form-check-input" type="checkbox"></td>
-                </tr>
-                <!-- ... -->
+                <?php foreach ($users as $index => $user) { ?>
+                    <tr>
+                        <td><?= $index + 1 ?></td>
+                        <td><?= $user->ma_sinh_vien ?></td>
+                        <td><?= $user->full_name ?></td>
+                        <td><?= date('d/m/Y', strtotime($user->birthday)) ?></td>
+                        <td><?= $user->diem_gv_cham ?? "" ?></td>
+                        <td><?= $user->xep_loai ?? "" ?></td>
+                        <td><?= $user->nhan_xet ?? "" ?></td>
+                        <td><input class="form-check-input" type="checkbox" <?= !empty($user->duyet) ? "selected" : "" ?>> </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </main>
+<script>
+    $('#semester').on('change', function() {
+        const semesterId = $(this).val();
+        const groupId = $(this).data('group-id');
+        if (semesterId) {
+            window.location.href = `/app/class_group_detail.php?group_id=<?=$group_id?>&semester_id=${semesterId}`;
+        } else {
+            window.location.href = `/app/class_group_detail.php?group_id=<?=$group_id?>`;
+        }
+    });
+</script>
 </body>
 
 </html>
