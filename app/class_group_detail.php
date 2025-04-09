@@ -59,7 +59,7 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
             <div>
                 <a href="/app/dashboard_lop.php?group_id=<?=$group_id?>&semester_id=<?= $semester_id ?>" class="btn btn-primary me-2 ms-4">Dashboard</a>
                 <button class="btn btn-success me-2 ms-2">Export</button>
-                <button class="btn btn-info text-white ms-2">Duyệt</button>
+                <button class="btn btn-info text-white ms-2" id="duyet-submit-id">Duyệt</button>
             </div>
         </div>
     </header>
@@ -88,7 +88,10 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                         <td><?= $user->diem_gv_cham ?? "" ?></td>
                         <td><?= $user->xep_loai ?? "" ?></td>
                         <td><?= $user->nhan_xet ?? "" ?></td>
-                        <td><input class="form-check-input" type="checkbox" <?= !empty($user->duyet) ? "selected" : "" ?>> </td>
+                        <td><input class="form-check-input checkbox-duyet" 
+         type="checkbox" 
+         data-user-id="<?= $user->id ?>" 
+         <?= !empty($user->duyet) ? "checked" : "" ?>> </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -105,6 +108,36 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
             window.location.href = `/app/class_group_detail.php?group_id=<?=$group_id?>`;
         }
     });
+    
+</script>
+<script>
+document.getElementById('duyet-submit-id').addEventListener('click', function () {
+    const checked = document.querySelectorAll('.checkbox-duyet:checked');
+    const semester_id = "<?= $semester_id ?>";
+    const userIds = [];
+
+    checked.forEach(cb => {
+        userIds.push(cb.dataset.userId);
+    });
+
+    // Gửi Ajax
+    fetch('/app/duyet_submit.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_ids: userIds, semester_id: semester_id })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Đã duyệt thành công!');
+        } else {
+            alert('Có lỗi xảy ra!');
+        }
+    })
+    .catch(() => alert('Lỗi kết nối!'));
+});
 </script>
 </body>
 
