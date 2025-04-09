@@ -30,15 +30,14 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
     )
     ->leftJoin(
         'diem_ren_luyen_user_id',
-        function ($join) use ($user_id) {
+        function ($join) use ($user_id_danh_gia) {
             $join->on('diem_ren_luyen_user_id.diem_ren_luyen_id', '=', 'diem_ren_luyen.id')
-                ->where('diem_ren_luyen_user_id.user_id', '=', $user_id);
+                ->where('diem_ren_luyen_user_id.user_id', '=', $user_id_danh_gia);
         }
     )
     ->where('diem_ren_luyen.semester_id', $semester_id)
     ->get();
 $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('semester_id', $semester_id)->first();
-
 
 ?>
 <style>
@@ -55,8 +54,8 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
         <div class="container mt-5 d-flex">
             <h4 class=""><?= $user_danh_gia->full_name ?> - <?= $semester->name ?></h4>
             <button class="btn btn-primary ms-2 text-end"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nhận xét</button>
-            <button class="btn btn-primary ms-4 text-end" id="btn-edit">Cập nhật</button>
-            <button class="btn btn-primary ms-4 text-end" id="btn-save">Xem lại</button>
+            <button class="btn btn-primary ms-4 text-end" id="btn-edit">Xem lại</button>
+            <button class="btn btn-primary ms-4 text-end" id="btn-save">Lưu</button>
         </div>
     </header>
     <div class="table-container">
@@ -73,7 +72,7 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
             <tbody id="table-body">
                 <?php foreach ($diem_ren_luyens as $key => $diem_ren_luyen): ?>
                     <tr>
-                        <td><?= $diem_ren_luyen->name ?></td>
+                        <td data-id="<?= $diem_ren_luyen->id ?>"><?= $diem_ren_luyen->name ?></td>
                         <td><?= $diem_ren_luyen->max_score ?></td>
                         <td><?= $diem_ren_luyen->student_self_assessment_score ?></td>
                         <td>
@@ -124,13 +123,15 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll("#table-body tr").forEach(row => {
             let imageElement = row.children[3].querySelector("img");
             imagesrc ="";
+            let id_diem_ren_luyen = row.querySelector('td')?.dataset.id || "";
+                console.log("ID điểm rèn luyện:", id_diem_ren_luyen);
             if (imageElement) {
                 imagesrc = imageElement.src; // Lấy đường dẫn của ảnh
             } else {
                 console.log("Không tìm thấy ảnh!");
             }
             row.innerHTML = `
-                <td><input type="text" class="form-control" name="name" value="${row.children[0].innerText}"></td>
+                <td data-id="${id_diem_ren_luyen}"><input type="text" class="form-control" name="name" value="${row.children[0].innerText}"></td>
                 <td><input type="number" class="form-control" readonly name="max_score" value="${row.children[1].innerText}"></td>
                 <td><input type="number" class="form-control" readonly name="student_self_assessment_score" value="${row.children[2].innerText}"></td>
                 <td></td>
@@ -147,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Thu thập dữ liệu để gửi lên server
         document.querySelectorAll("#table-body tr").forEach(row => {
             let item = {
+                id: row.querySelector('td').dataset.id,
                 name: row.querySelector('input[name="name"]').value,
                 max_score: row.querySelector('input[name="max_score"]').value,
                 student_self_assessment_score: row.querySelector('input[name="student_self_assessment_score"]').value,
@@ -155,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
             data.push(item);
         });
 
-        fetch("save_diem_ren_luyen.php", {
+        fetch("save_diem_ren_luyen.php?user_id=<?= $user_id_danh_gia ?>&semester_id=<?= $semester_id ?>", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ diem_ren_luyen: data, semester_id: <?= $semester_id ?> })
