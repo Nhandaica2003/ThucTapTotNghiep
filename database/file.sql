@@ -106,56 +106,75 @@ CREATE TABLE IF NOT EXISTS `diem_ren_luyen_user_id` (
 
 -- Dumping data for table nhan.diem_ren_luyen_user_id: ~50 rows (approximately)
 INSERT INTO `diem_ren_luyen_user_id` (`id`, `user_id`, `diem_ren_luyen_id`, `semester_id`, `student_self_assessment_score`, `class_assessment_score`, `evidence`, `teacher_assessment_score`) VALUES
-	(1, 1, 118, 29, 2.00, 0.00, '', '0'),
-	(2, 1, 119, 29, 2.00, 0.00, '', '0'),
-	(3, 1, 120, 29, 0.00, 0.00, '', '0'),
-	(4, 1, 121, 29, 0.00, 0.00, '', '0'),
-	(5, 1, 122, 29, 0.00, 0.00, '', '0'),
-	(6, 1, 123, 29, 0.00, 0.00, '', '0'),
-	(7, 1, 124, 29, 0.00, 0.00, '', '0'),
-	(8, 1, 125, 29, 0.00, 0.00, '', '0'),
-	(9, 1, 126, 29, 0.00, 0.00, '', '0'),
-	(10, 1, 127, 29, 0.00, 0.00, '', '0'),
-	(11, 1, 128, 29, 0.00, 0.00, '', '0'),
-	(12, 1, 129, 29, 0.00, 0.00, '', '0'),
-	(13, 1, 130, 29, 0.00, 0.00, '', '0'),
-	(14, 1, 131, 29, 0.00, 0.00, '', '0'),
-	(15, 1, 132, 29, 0.00, 0.00, '', '0'),
-	(16, 1, 133, 29, 0.00, 0.00, '', '0'),
-	(17, 1, 134, 29, 0.00, 0.00, '', '0'),
-	(18, 1, 135, 29, 0.00, 0.00, '', '0'),
-	(19, 1, 136, 29, 0.00, 0.00, '', '0'),
-	(20, 1, 137, 29, 0.00, 0.00, '', '0'),
-	(21, 1, 138, 29, 0.00, 0.00, '', '0'),
-	(22, 1, 139, 29, 0.00, 0.00, '', '0'),
-	(23, 1, 140, 29, 0.00, 0.00, '', '0'),
-	(24, 1, 141, 29, 0.00, 0.00, '', '0'),
-	(25, 1, 142, 29, 0.00, 0.00, '', '0'),
-	(26, 1, 143, 29, 0.00, 0.00, '', '0'),
-	(27, 1, 144, 29, 0.00, 0.00, '', '0'),
-	(28, 1, 145, 29, 0.00, 0.00, '', '0'),
-	(29, 1, 146, 29, 0.00, 0.00, '', '0'),
-	(30, 1, 147, 29, 0.00, 0.00, '', '0'),
-	(31, 1, 148, 29, 0.00, 0.00, '', '0'),
-	(32, 1, 149, 29, 0.00, 0.00, '', '0'),
-	(33, 1, 150, 29, 0.00, 0.00, '', '0'),
-	(34, 1, 151, 29, 0.00, 0.00, '', '0'),
-	(35, 1, 152, 29, 0.00, 0.00, '', '0'),
-	(36, 1, 153, 29, 0.00, 0.00, '', '0'),
-	(37, 1, 154, 29, 0.00, 0.00, '', '0'),
-	(38, 1, 155, 29, 0.00, 0.00, '', '0'),
-	(39, 1, 156, 29, 0.00, 0.00, '', '0'),
-	(40, 1, 157, 29, 0.00, 0.00, '', '0'),
-	(41, 1, 158, 29, 0.00, 0.00, '', '0'),
-	(42, 1, 159, 29, 0.00, 0.00, '', '0'),
-	(43, 1, 160, 29, 0.00, 0.00, '', '0'),
-	(44, 1, 161, 29, 0.00, 0.00, '', '0'),
-	(45, 1, 162, 29, 0.00, 0.00, '', '0'),
-	(46, 1, 163, 29, 0.00, 0.00, '', '0'),
-	(47, 1, 164, 29, 0.00, 0.00, '', '0'),
-	(48, 1, 165, 29, 0.00, 0.00, '', '0'),
-	(49, 1, 166, 29, 0.00, 0.00, '', '0'),
-	(50, 1, 167, 29, 0.00, 0.00, '', '0');
+	(1, 4, 118, 29, 4.00, 2.00, '', '4'),
+	(2, 4, 119, 29, 4.00, 2.00, '', '3'),
+	(3, 4, 120, 29, 4.00, 4.00, '', '2'),
+	(4, 4, 121, 29, 2.00, 0.00, '', '2'),
+	(5, 4, 122, 29, 2.00, 0.00, '', '1'),
+	(6, 4, 123, 29, 6.00, 0.00, '', '6'),
+	(7, 4, 124, 29, 6.00, 0.00, '', '6'),
+	(8, 4, 125, 29, 2.00, 0.00, '', '2'),
+	(9, 4, 126, 29, 2.00, 0.00, '', '0'),
+	(10, 4, 127, 29, 4.00, 0.00, '', '4'),
+	(11, 4, 128, 29, 4.00, 0.00, '', '4'),
+	(12, 4, 129, 29, 0.00, 0.00, '', '0'),
+	(13, 4, 130, 29, 0.00, 0.00, '', '0'),
+	(14, 4, 131, 29, 10.00, 0.00, '', '0'),
+	(15, 4, 132, 29, 5.00, 0.00, '', '5.00'),
+	(16, 4, 133, 29, 4.00, 0.00, '', '4'),
+	(17, 4, 134, 29, 0.00, 0.00, '', '0'),
+	(18, 4, 135, 29, 10.00, 0.00, '', '10'),
+	(19, 4, 136, 29, 5.00, 0.00, '', '5'),
+	(20, 4, 137, 29, -1.00, 0.00, '', '0'),
+	(21, 4, 138, 29, 0.00, 0.00, '', '0'),
+	(22, 4, 139, 29, 0.00, 0.00, '', '0'),
+	(23, 4, 140, 29, 10.00, 0.00, '', '10'),
+	(24, 4, 141, 29, 4.00, 0.00, '', '6'),
+	(25, 4, 142, 29, 0.00, 0.00, '', '0'),
+	(26, 4, 143, 29, 2.00, 0.00, '', '2'),
+	(27, 4, 144, 29, 0.00, 0.00, '', '0'),
+	(28, 4, 145, 29, 2.00, 0.00, '', '2'),
+	(29, 4, 146, 29, -1.00, 0.00, '', '0'),
+	(30, 4, 147, 29, 0.00, 0.00, '', '0'),
+	(31, 4, 148, 29, 0.00, 0.00, '', '0'),
+	(32, 4, 149, 29, 4.00, 0.00, '', '4'),
+	(33, 4, 150, 29, 10.00, 0.00, '', '10'),
+	(34, 4, 151, 29, 9.00, 0.00, '', '9'),
+	(35, 4, 152, 29, 0.00, 0.00, '', '0'),
+	(36, 4, 153, 29, 4.00, 0.00, '', '4'),
+	(37, 4, 154, 29, 2.00, 0.00, '', '0'),
+	(38, 4, 155, 29, 2.00, 0.00, '', '2'),
+	(39, 4, 156, 29, 0.00, 0.00, '', '0'),
+	(40, 4, 157, 29, 0.00, 0.00, '', '0'),
+	(41, 4, 158, 29, 0.00, 0.00, '', '3'),
+	(42, 4, 159, 29, 3.00, 0.00, '', '3'),
+	(43, 4, 160, 29, 0.00, 0.00, '', '0'),
+	(44, 4, 161, 29, 2.00, 0.00, '', '2'),
+	(45, 4, 162, 29, 0.00, 0.00, '', '0'),
+	(46, 4, 163, 29, 3.00, 0.00, '', '3.00'),
+	(47, 4, 164, 29, 0.00, 0.00, '', '0'),
+	(48, 4, 165, 29, 2.00, 0.00, '', '2'),
+	(49, 4, 166, 29, 0.00, 0.00, '', '0'),
+	(50, 4, 167, 29, 0.00, 0.00, '', '0');
+
+-- Dumping structure for table nhan.duyets
+CREATE TABLE IF NOT EXISTS `duyets` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `diem_gv_cham` float DEFAULT NULL,
+  `xep_loai` varchar(255) DEFAULT NULL,
+  `nhan_xet` text,
+  `duyet` tinyint(1) DEFAULT '0',
+  `user_id` bigint unsigned NOT NULL,
+  `semester_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `nhan_xet_bcs` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table nhan.duyets: ~1 rows (approximately)
+INSERT INTO `duyets` (`id`, `diem_gv_cham`, `xep_loai`, `nhan_xet`, `duyet`, `user_id`, `semester_id`, `created_at`, `nhan_xet_bcs`) VALUES
+	(1, 31, 'Yếu', '', 1, 1, 29, '2025-04-08 06:51:40', NULL),
+	(2, 120, 'Kém', '', 1, 4, 29, '2025-04-09 02:41:43', ' Nhận xét của Ban Can sự 222');
 
 -- Dumping structure for table nhan.form_danh_gia
 CREATE TABLE IF NOT EXISTS `form_danh_gia` (
@@ -166,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `form_danh_gia` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.form_danh_gia: ~46 rows (approximately)
+-- Dumping data for table nhan.form_danh_gia: ~45 rows (approximately)
 INSERT INTO `form_danh_gia` (`id`, `name`, `max_score`, `parent_id`) VALUES
 	(127, '1. Đánh giá về ý thức học tập', 4, 0),
 	(128, 'a) Ý thức và thái độ trong học tập', 9, 127),
@@ -319,12 +338,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.users: ~6 rows (approximately)
+-- Dumping data for table nhan.users: ~7 rows (approximately)
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `role_name`, `group_id`, `chuyennganh`, `he_dao_tao`, `full_name`, `birthday`, `ma_sinh_vien`) VALUES
-	(1, 'nguyenvana@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'giang vien', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn B', '2005-03-08', '14551231222'),
-	(4, 'hungrandy', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-31 03:19:01', 'sinh vien', 3, 'Công Nghệ thông tin', 'Chính quy', 'Lê Quốc Hưng', '2001-01-15', '152155322'),
+	(1, 'nguyenvana@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'ban can su', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn B', '2005-03-08', '14551231222'),
+	(4, 'hungrandy', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-31 03:19:01', 'sinh vien', 1, 'Công Nghệ thông tin', 'Chính quy', 'Lê Quốc Hưng', '2001-01-15', '152155322'),
 	(6, 'nguyenvanc@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:10:54', 'sinh vien', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn D', '2025-04-02', NULL),
-	(7, 'nguyenvana2w@gmail.com', 'e2a1715ac00b5e872a2191fb13f69a69', '2025-04-06 06:14:56', 'giang vien', NULL, NULL, NULL, 'Nguyễn Văn Lan', NULL, NULL),
+	(7, 'nguyenvana2w@gmail.com', 'e2a1715ac00b5e872a2191fb13f69a69', '2025-04-06 06:14:56', 'ban can su', 1, NULL, NULL, 'Nguyễn Văn Lan', NULL, NULL),
 	(8, 'bancansua@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:24:15', 'ban can su', NULL, NULL, NULL, 'Ban can su a', NULL, NULL),
 	(9, 'bancansu2@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:31:12', 'ban can su', 4, NULL, NULL, 'Ban can su C', NULL, NULL);
 
