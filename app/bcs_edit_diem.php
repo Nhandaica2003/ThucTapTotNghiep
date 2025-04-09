@@ -37,6 +37,7 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
     )
     ->where('diem_ren_luyen.semester_id', $semester_id)
     ->get();
+$duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('semester_id', $semester_id)->first();
 
 
 ?>
@@ -53,7 +54,7 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
     <header class="header">
         <div class="container mt-5 d-flex">
             <h4 class=""><?= $user_danh_gia->full_name ?> - <?= $semester->name ?></h4>
-            <button class="btn btn-primary ms-2 text-end"  data-bs-toggle="modal" data-bs-target="#btn-comment">Nhận xét</button>
+            <button class="btn btn-primary ms-2 text-end"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nhận xét</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-edit">Cập nhật</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-save">Xem lại</button>
         </div>
@@ -90,17 +91,27 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
 </main>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="btn-comment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header border-0">
-        <h5 class="modal-title mx-auto" id="exampleModalLabel">Nhận xét</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="nhan_xet_gvcn.php" id="form-nhan-xet" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nhận xét của Ban Can sự</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nhan_xet_bcs" class="form-label">Nội dung nhận xét</label>
+            <textarea class="form-control" name="nhan_xet_bcs" id="nhan_xet_bcs" rows="4" required> <?= $duyet->nhan_xet_bcs ?></textarea>
+          </div>
+          <input type="hidden" name="semester_id" value="20242025_2"> <!-- ví dụ học kỳ -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu nhận xét</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <textarea class="form-control" rows="5"  placeholder="Chưa đáp ứng đủ tiêu chí"></textarea>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 
@@ -161,6 +172,34 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+$('#form-nhan-xet').on('submit', function (e) {
+        e.preventDefault();
+        data ={
+            nhan_xet_bcs: $('#nhan_xet_bcs').val(),
+            user_id: <?= $user_id_danh_gia ?>,
+            semester_id: <?= $semester_id ?>
+        }
+
+        $.ajax({
+            url: '/app/nhan_xet_bcs.php',
+            method: 'POST',
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                alert(response.message);
+                $('#exampleModal').modal('hide');
+                    location.reload()
+                    // có thể làm thêm: load lại bảng hoặc cập nhật UI
+                } else {
+                    alert('Lỗi: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('Đã có lỗi xảy ra khi gửi nhận xét.');
+            }
+        });
+    });
 </script>
 </body>
 
