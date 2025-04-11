@@ -148,7 +148,7 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
                 console.log(item.id);
                 data.push(item);
             });
-            fetch("save_diem_ren_luyen.php", {
+            fetch("save_diem_ren_luyen.php?user_id=<?= $user_id ?>&semester_id=<?= $semester_id ?>", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

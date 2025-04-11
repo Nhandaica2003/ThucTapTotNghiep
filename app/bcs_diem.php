@@ -16,16 +16,16 @@ if (empty($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
 
-$semesters = Capsule::table('semester')->leftJoin('semester_scores', 'semester_scores.semester_id', '=', 'semester.id')
+$semesters = Capsule::table('semester')->leftJoin('duyets', 'duyets.semester_id', '=', 'semester.id')
     ->select(
         'semester.*',
-        'semester_scores.excellent_count',
-        'semester_scores.good_count',
-        'semester_scores.fairly_good_count',
-        'semester_scores.average_count',
-        'semester_scores.weak_count',
-        'semester_scores.poor_count'
-    )
+        Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Xuất sắc" THEN 1 ELSE 0 END) as excellent_count'),
+        Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Giỏi" THEN 1 ELSE 0 END) as good_count'),
+        Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Khá" THEN 1 ELSE 0 END) as fairly_good_count'),
+        Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Trung bình" THEN 1 ELSE 0 END) as average_count'),
+        Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Yếu" THEN 1 ELSE 0 END) as weak_count'),
+        Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Kém" THEN 1 ELSE 0 END) as poor_count')
+    )->groupBy('semester.id')
     ->where('semester.group_id', $user->group_id)->get();
 
 

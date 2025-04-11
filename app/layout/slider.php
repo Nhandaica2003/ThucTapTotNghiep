@@ -60,8 +60,8 @@ if ($user->role_name == ROLE_GV) {
                         <div class="menu-item has-submenu">
                             <a href="/app/ManageHocKy.php"><i class="fas fa-user"></i> Kết quả điểm rèn luyện</a>
                             <div class="submenu">
-                                <a href="/app/ManageHocKy.php" class="submenu-item">Điểm rèn luyện của tôi</a>
-                                <a href="/app/diem_ren_luyen.php" class="submenu-item">Sinh viên tự đánh giá</a>
+                                <a href="/app/hockyhocsinh.php" class="submenu-item">Điểm rèn luyện của tôi</a>
+                                <a href="/app/hockyhocsinh.php" class="submenu-item">Sinh viên tự đánh giá</a>
                             </div>
                         </div>
                     </li>

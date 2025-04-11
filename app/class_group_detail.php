@@ -12,12 +12,12 @@ if (!$group_id) {
 $semester_id = $_GET['semester_id'] ?? null;
 
 $users = Capsule::table('users')->where('group_id', $group_id);
-$users = $users->select("users.*", 'duyets.diem_gv_cham', 'duyets.xep_loai', 'duyets.nhan_xet', 'duyets.duyet');
+$users = $users->select("users.*");
 if ($semester_id) {
     $users = $users->leftJoin('duyets', function ($join) use ($semester_id) {
         $join->on('users.id', '=', 'duyets.user_id')
             ->where('duyets.semester_id', '=', $semester_id);
-    });
+    })->addSelect('duyets.diem_gv_cham', 'duyets.xep_loai', 'duyets.nhan_xet', 'duyets.duyet');
 }
 $users = $users->get();
 $group = Capsule::table('groupes')->where('id', $group_id)->first();
@@ -52,13 +52,16 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                 <select class="form-select d-inline-block" id="semester">
                     <option value="">Làm ơn chọn Học kỳ</option>
                     <?php foreach ($semester as $sem):  ?>
-                        <option value='<?= $sem->id ?>' <?= !empty($semester_id) && $semester_id == $sem->id ? "selected" :"" ?>><?= $sem->name ?></option>
+                        <option value='<?= $sem->id ?>' <?= !empty($semester_id) && $semester_id == $sem->id ? "selected" : "" ?>><?= $sem->name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div>
-                <a href="/app/dashboard_lop.php?group_id=<?=$group_id?>&semester_id=<?= $semester_id ?>" class="btn btn-primary me-2 ms-4">Dashboard</a>
-                <button class="btn btn-success me-2 ms-2">Export</button>
+                <a href="/app/dashboard_lop.php?group_id=<?= $group_id ?>&semester_id=<?= $semester_id ?>" class="btn btn-primary me-2 ms-4">Dashboard</a>
+                <a class="btn btn-success me-2 ms-2"
+                    href="/app/export_class_group_detail.php?group_id=<?= $group_id ?>&semester_id=<?= $semester_id ?>">
+                    Export
+                </a>
                 <button class="btn btn-info text-white ms-2" id="duyet-submit-id">Duyệt</button>
             </div>
         </div>
@@ -84,14 +87,14 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                         <td><?= $index + 1 ?></td>
                         <td><?= $user->ma_sinh_vien ?></td>
                         <td><a href="/app/diem_ren_luyen_gvcn.php?user_id=<?= $user->id ?>&semester_id=<?= $semester_id ?>"><?= $user->full_name ?></a> </td>
-                        <td><?= $user->birthday? date('d/m/Y', strtotime($user->birthday)): "" ?></td>
+                        <td><?= $user->birthday ? date('d/m/Y', strtotime($user->birthday)) : "" ?></td>
                         <td><?= $user->diem_gv_cham ?? "" ?></td>
                         <td><?= $user->xep_loai ?? "" ?></td>
                         <td><?= $user->nhan_xet ?? "" ?></td>
-                        <td><input class="form-check-input checkbox-duyet" 
-         type="checkbox" 
-         data-user-id="<?= $user->id ?>" 
-         <?= !empty($user->duyet) ? "checked" : "" ?>> </td>
+                        <td><input class="form-check-input checkbox-duyet"
+                                type="checkbox"
+                                data-user-id="<?= $user->id ?>"
+                                <?= !empty($user->duyet) ? "checked" : "" ?>> </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -103,41 +106,43 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
         const semesterId = $(this).val();
         const groupId = $(this).data('group-id');
         if (semesterId) {
-            window.location.href = `/app/class_group_detail.php?group_id=<?=$group_id?>&semester_id=${semesterId}`;
+            window.location.href = `/app/class_group_detail.php?group_id=<?= $group_id ?>&semester_id=${semesterId}`;
         } else {
-            window.location.href = `/app/class_group_detail.php?group_id=<?=$group_id?>`;
+            window.location.href = `/app/class_group_detail.php?group_id=<?= $group_id ?>`;
         }
     });
-    
 </script>
 <script>
-document.getElementById('duyet-submit-id').addEventListener('click', function () {
-    const checked = document.querySelectorAll('.checkbox-duyet:checked');
-    const semester_id = "<?= $semester_id ?>";
-    const userIds = [];
+    document.getElementById('duyet-submit-id').addEventListener('click', function() {
+        const checked = document.querySelectorAll('.checkbox-duyet:checked');
+        const semester_id = "<?= $semester_id ?>";
+        const userIds = [];
 
-    checked.forEach(cb => {
-        userIds.push(cb.dataset.userId);
+        checked.forEach(cb => {
+            userIds.push(cb.dataset.userId);
+        });
+
+        // Gửi Ajax
+        fetch('/app/duyet_submit.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_ids: userIds,
+                    semester_id: semester_id
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Đã duyệt thành công!');
+                } else {
+                    alert('Có lỗi xảy ra!');
+                }
+            })
+            .catch(() => alert('Lỗi kết nối!'));
     });
-
-    // Gửi Ajax
-    fetch('/app/duyet_submit.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_ids: userIds, semester_id: semester_id })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert('Đã duyệt thành công!');
-        } else {
-            alert('Có lỗi xảy ra!');
-        }
-    })
-    .catch(() => alert('Lỗi kết nối!'));
-});
 </script>
 </body>
 

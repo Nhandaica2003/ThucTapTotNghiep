@@ -9,7 +9,7 @@ $user = Capsule::table('users')->where('id', $user_id)->first();
 $users = Capsule::table('users')->where('group_id', $user->group_id)->pluck('id');
 $semester_id = $_GET['semester_id'] ?? "";
 $semester = Capsule::table('semester')->where('id', $semester_id)->first();
-if(!$semester){
+if (!$semester) {
     header('Location: /app/bcs_diem.php');
     die();
 }
@@ -25,11 +25,11 @@ $users = Capsule::table('users')
     )
     ->leftJoin('diem_ren_luyen_user_id', function ($join) use ($semester_id) {
         $join->on('diem_ren_luyen_user_id.user_id', '=', 'users.id')
-             ->where('diem_ren_luyen_user_id.semester_id', '=', $semester_id);
+            ->where('diem_ren_luyen_user_id.semester_id', '=', $semester_id);
     })
     ->leftJoin('comments', function ($join) use ($semester_id) {
         $join->on('comments.user_id', '=', 'users.id')
-             ->where('comments.semester_id', '=', $semester_id);
+            ->where('comments.semester_id', '=', $semester_id);
     })
     ->where('users.group_id', $user->group_id)
     ->groupBy('users.id')
@@ -42,7 +42,15 @@ $users = Capsule::table('users')
         <div class="container mt-5">
 
             <h4 class=""><?= $semester->name ?></h4>
-                <h4 class="text-center">DANH SÁCH ĐIỂM RÈN LUYỆN</h4>
+            <h4 class="text-center">DANH SÁCH ĐIỂM RÈN LUYỆN</h4>
+            <div class="ml-auto d-flex align-items-center">
+                <button class="btn btn-primary" onclick="window.location.href='export_diem.php?semester_id=<?= $semester_id ?>&group_id=<?= $user->group_id ?>'">
+                    Export
+                </button>
+                <a href="/app/dashboard_lop.php?group_id=<?=$user->group_id?>&semester_id=<?= $semester_id ?>" class="btn btn-primary ms-4" aria-labelledby="dropdownMenuButton">
+                    Dashboard
+                </a>
+            </div>
         </div>
     </header>
     <div class="table-container">
@@ -65,9 +73,9 @@ $users = Capsule::table('users')
                         <td><?= ++$key ?></td>
                         <td> <?= $user->ma_sinh_vien ?></td>
                         <td><a href="/app/bcs_edit_diem.php?user_id=<?= $user->id ?>&semester_id=<?= $semester->id ?>"><?= $user->full_name ?></a></td>
-                        <td><?= $user->total_student_self_score ?:0 ?></td>
-                        <td><?= $user->total_class_score ?:0 ?></td>
-                        <td><?= $user->total_teacher_assessment_score ?:0 ?></td>
+                        <td><?= $user->total_student_self_score ?: 0 ?></td>
+                        <td><?= $user->total_class_score ?: 0 ?></td>
+                        <td><?= $user->total_teacher_assessment_score ?: 0 ?></td>
                         <td><button value="<?= $user->comment_teacher ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
                         <td><button value="<?= $user->comment_bcs ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
                     </tr>
