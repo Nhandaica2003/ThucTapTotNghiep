@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `diem_ren_luyen` (
   `semester_id` int DEFAULT NULL,
   `parent_id` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table nhan.diem_ren_luyen: ~50 rows (approximately)
 INSERT INTO `diem_ren_luyen` (`id`, `name`, `max_score`, `created_at`, `semester_id`, `parent_id`) VALUES
@@ -89,7 +89,52 @@ INSERT INTO `diem_ren_luyen` (`id`, `name`, `max_score`, `created_at`, `semester
 	(164, 'd) Đạt được thành tích trong học tập, rèn luyện', 2.00, '2025-04-01 03:46:40', 29, 0),
 	(165, '- Đạt thành tích trong học tập, rèn luyện (được tặng bằng khen, giấy khen, chứng nhận, thư khen của các cấp)', 2.00, '2025-04-01 03:46:40', 29, 0),
 	(166, 'Cộng mục 5', 10.00, '2025-04-01 03:46:40', 29, 0),
-	(167, 'Tổng cộng (mục 1 đến mục 5)', 100.00, '2025-04-01 03:46:40', 29, 0);
+	(167, 'Tổng cộng (mục 1 đến mục 5)', 100.00, '2025-04-01 03:46:40', 29, 0),
+	(168, '1. Đánh giá về ý thức học tập', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(169, 'a) Ý thức và thái độ trong học tập', 9.00, '2025-04-14 02:26:50', 33, 0),
+	(170, '- Có đi học chuyên cần, đúng giờ, nghiêm túc trong giờ học; đủ điều kiện dự thi tất cả các học phần\n (Không đủ điều kiện dự thi 01 học phần bị trừ 02 điểm. Không đủ điều kiện dự thi từ 02 học phần trở lên bị trừ hết số điểm còn lại của tiêu chí)', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(171, 'b. Ý thức và thái độ tham gia các câu lạc bộ học thuật, hoạt động học thuật, hoạt động ngoại khoá, hoạt động nghiên cứu khoa học', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(172, '- Có đăng ký, thực hiện, báo cáo đề tài nghiên cứu khoa học đúng tiến độ hoặc có đăng ký, tham dự kỳ thi sinh viên giỏi các cấp', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(173, '- Có ý thức tham gia các câu lạc bộ học thuật, các hoạt động học thuật, hoạt động ngoại khoá', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(174, 'c. Ý thức và thái độ trong kỳ thi, kiểm tra đánh giá các học phần', 6.00, '2025-04-14 02:26:50', 33, 0),
+	(175, '- Không vi phạm quy chế thi và kiểm tra \n (Vi phạm 01 lần bị trừ 02 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)', 6.00, '2025-04-14 02:26:50', 33, 0),
+	(176, 'd. Tinh thần vượt khó, phấn đấu vươn lên trong học tập', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(177, '- Được tập thể lớp công nhận có tinh thần vượt khó, phấn đấu vươn lên trong học tập', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(178, 'e. Kết quả học tập  0 điểm', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(179, '- Điểm TBCHK từ 3,2 đến 4,0 \n - Điểm TBCHK từ 2,0 đến 3,19 \n - Điểm TBCHK dưới 2,0', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(180, '2. Đánh giá về ý thức chấp hành nội quy, quy chế, quy định được thực hiện trong nhà trường', 25.00, '2025-04-14 02:26:50', 33, 0),
+	(181, 'a) Ý thức chấp hành các văn bản chỉ đạo của ngành, của cấp trên và ĐHĐN được thực hiện trong nhà trường', 10.00, '2025-04-14 02:26:50', 33, 0),
+	(182, '- Có ý thức chấp hành các văn bản chỉ đạo của ngành, cấp trên và ĐHĐN được thực hiện trong nhà trường\n (Vi phạm 01 lần bị trừ 02 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)', 6.00, '2025-04-14 02:26:50', 33, 0),
+	(183, '- Có ý thức tham gia đầy đủ, đạt yêu cầu các cuộc vận động, sinh hoạt chính trị theo chủ trương, của cấp trên, ĐHĐN và nhà trường\n (Không tham gia 01 lần hoặc vi phạm quy định của các cuộc vận động bị trừ 02 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(184, 'b. Ý thức chấp hành nội quy, quy chế và các quy định của nhà trường', 15.00, '2025-04-14 02:26:50', 33, 0),
+	(185, '- Có ý thức chấp hành nội quy, quy chế và các quy định của nhà trường\n (Vi phạm 01 lần bị trừ 02 điểm, từ lần vi phạm thứ ba trở đi bị trừ hết số điểm còn lại của tiêu chí)', 10.00, '2025-04-14 02:26:50', 33, 0),
+	(186, '- Có ý thức chấp hành quy định về đóng học phí\n (Không đóng học phí hoặc đóng học phí trễ hạn (không có phép) bị trừ 05 điểm)', 5.00, '2025-04-14 02:26:50', 33, 0),
+	(187, '3. Đánh giá về ý thức tham gia các hoạt động rèn luyện về chính trị, xã hội, văn hóa, văn nghệ, thể thao, phòng chống tội phạm và các tệ nạn xã hội', 20.00, '2025-04-14 02:26:50', 33, 0),
+	(188, 'a. Ý thức và hiệu quả tham gia các hoạt động rèn luyện về chính trị, xã hội, văn hóa, văn nghệ, thể thao', 16.00, '2025-04-14 02:26:50', 33, 0),
+	(189, '- Tham gia đầy đủ, đạt yêu cầu “Tuần sinh hoạt công dân sinh viên” (đánh giá chung cho cả hai học kỳ trong năm học)\n (Vắng 01 lần (không có phép) bị trừ 02 điểm; Tham gia nhưng kết quả không đạt thì phải học lại và bị trừ 04 điểm; Không tham gia thì phải học lại và bị trừ 10 điểm)', 10.00, '2025-04-14 02:26:50', 33, 0),
+	(190, '- Có ý thức tham gia đầy đủ, nghiêm túc hoạt động rèn luyện về chính trị, xã hội, văn hóa, văn nghệ, thể thao do nhà trường và ĐHĐN tổ chức, điều động\n (Vắng 01 lần (không có phép) bị trừ 02 điểm)', 6.00, '2025-04-14 02:26:50', 33, 0),
+	(191, 'b) Ý thức tham gia các hoạt động công ích, tình nguyện, công tác xã hội trong nhà trường', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(192, '- Có ý thức tham gia các hoạt động công ích, tình nguyện, công tác xã hội trong nhà trường', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(193, 'c) Ý thức tham gia các hoạt động tuyên truyền, phòng chống tội phạm và các tệ nạn xã hội trong nhà trường', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(194, '- Có ý thức tham gia các hoạt động tuyên truyền, phòng chống tội phạm và các tệ nạn xã hội trong nhà trường', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(195, '4. Đánh giá về ý thức công dân trong quan hệ cộng đồng', 25.00, '2025-04-14 02:26:50', 33, 0),
+	(196, 'a) Ý thức chấp hành và tham gia tuyên truyền các chủ trương của Đảng, chính sách, pháp luật của Nhà nước', 19.00, '2025-04-14 02:26:50', 33, 0),
+	(197, '- Có ý thức chấp hành, tham gia tuyên truyền các chủ trương của Đảng, chính sách, pháp luật của Nhà nước\n (Vi phạm 01 lần bị trừ 02 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(198, '- Có tham gia bảo hiểm y tế (bắt buộc) theo Luật bảo hiểm y tế \n (Không tham gia bảo hiểm y tế (bắt buộc) bị trừ 10 điểm)', 10.00, '2025-04-14 02:26:50', 33, 0),
+	(199, '- Có ý thức chấp hành, tham gia tuyên truyền các quy định về bảo đảm an toàn giao thông và “văn hóa giao thông”\n (Vi phạm 01 lần bị trừ 02 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)', 5.00, '2025-04-14 02:26:50', 33, 0),
+	(200, 'b) Có ý thức tham gia các hoạt động xã hội, có thành tích được ghi nhận, biểu dương, khen thưởng', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(201, '- Có ý thức tham gia các hoạt động xã hội có thành tích được ghi nhận, biểu dương, khen thưởng', 4.00, '2025-04-14 02:26:50', 33, 0),
+	(202, 'c) Có tinh thần chia sẻ, giúp đỡ người gặp khó khăn, hoạn nạn', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(203, '- Có tinh thần chia sẻ, giúp đỡ người gặp khó khăn, hoạn nạn', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(204, '5. Đánh giá về ý thức và kết quả khi tham gia công tác cán bộ lớp, các đoàn thể, tổ chức trong nhà trường hoặc sinh viên đạt được thành tích trong học tập, rèn luyện', 10.00, '2025-04-14 02:26:50', 33, 0),
+	(205, 'a) Có ý thức, tinh thần, thái độ, uy tín và đạt hiệu quả công việc khi sinh viên được phân công nhiệm vụ quản lý lớp, các tổ chức Đảng, Đoàn Thanh niên, Hội Sinh viên và các tổ chức khác trong nhà trường', 3.00, '2025-04-14 02:26:50', 33, 0),
+	(206, '- Có ý thức, uy tín và hoàn thành tốt nhiệm vụ quản lý lớp, các tổ chức Đảng, Đoàn Thanh niên, Hội Sinh viên, tổ chức khác trong nhà trường', 3.00, '2025-04-14 02:26:50', 33, 0),
+	(207, 'b) Kỹ năng tổ chức, quản lý lớp, các tổ chức Đảng, Đoàn Thanh niên, Hội Sinh viên và các tổ chức khác trong nhà trường', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(208, '- Có kỹ năng tổ chức, quản lý lớp, các tổ chức Đảng, Đoàn Thanh niên, Hội Sinh viên và các tổ chức khác trong nhà trường', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(209, 'c) Hỗ trợ và tham gia tích cực các hoạt động chung của tập thể lớp, khoa, trường và ĐHĐN', 3.00, '2025-04-14 02:26:50', 33, 0),
+	(210, '- Hỗ trợ và tham gia tích cực các hoạt động chung của tập thể lớp, khoa, trường và ĐHĐN', 3.00, '2025-04-14 02:26:50', 33, 0),
+	(211, 'd) Đạt được thành tích trong học tập, rèn luyện', 2.00, '2025-04-14 02:26:50', 33, 0),
+	(212, '- Đạt thành tích trong học tập, rèn luyện (được tặng bằng khen, giấy khen, chứng nhận, thư khen của các cấp)', 2.00, '2025-04-14 02:26:51', 33, 0);
 
 -- Dumping structure for table nhan.diem_ren_luyen_user_id
 CREATE TABLE IF NOT EXISTS `diem_ren_luyen_user_id` (
@@ -106,56 +151,56 @@ CREATE TABLE IF NOT EXISTS `diem_ren_luyen_user_id` (
 
 -- Dumping data for table nhan.diem_ren_luyen_user_id: ~50 rows (approximately)
 INSERT INTO `diem_ren_luyen_user_id` (`id`, `user_id`, `diem_ren_luyen_id`, `semester_id`, `student_self_assessment_score`, `class_assessment_score`, `evidence`, `teacher_assessment_score`) VALUES
-	(1, 4, 118, 29, 4.00, 2.00, '', '4'),
-	(2, 4, 119, 29, 4.00, 2.00, '', '3'),
-	(3, 4, 120, 29, 4.00, 4.00, '', '2'),
-	(4, 4, 121, 29, 2.00, 0.00, '', '2'),
-	(5, 4, 122, 29, 2.00, 0.00, '', '1'),
-	(6, 4, 123, 29, 6.00, 0.00, '', '6'),
-	(7, 4, 124, 29, 6.00, 0.00, '', '6'),
-	(8, 4, 125, 29, 2.00, 0.00, '', '2'),
-	(9, 4, 126, 29, 2.00, 0.00, '', '0'),
-	(10, 4, 127, 29, 4.00, 0.00, '', '4'),
-	(11, 4, 128, 29, 4.00, 0.00, '', '4'),
-	(12, 4, 129, 29, 0.00, 0.00, '', '0'),
-	(13, 4, 130, 29, 0.00, 0.00, '', '0'),
-	(14, 4, 131, 29, 10.00, 0.00, '', '0'),
-	(15, 4, 132, 29, 5.00, 0.00, '', '5.00'),
-	(16, 4, 133, 29, 4.00, 0.00, '', '4'),
-	(17, 4, 134, 29, 0.00, 0.00, '', '0'),
-	(18, 4, 135, 29, 10.00, 0.00, '', '10'),
-	(19, 4, 136, 29, 5.00, 0.00, '', '5'),
-	(20, 4, 137, 29, -1.00, 0.00, '', '0'),
-	(21, 4, 138, 29, 0.00, 0.00, '', '0'),
-	(22, 4, 139, 29, 0.00, 0.00, '', '0'),
-	(23, 4, 140, 29, 10.00, 0.00, '', '10'),
-	(24, 4, 141, 29, 4.00, 0.00, '', '6'),
-	(25, 4, 142, 29, 0.00, 0.00, '', '0'),
-	(26, 4, 143, 29, 2.00, 0.00, '', '2'),
-	(27, 4, 144, 29, 0.00, 0.00, '', '0'),
-	(28, 4, 145, 29, 2.00, 0.00, '', '2'),
-	(29, 4, 146, 29, -1.00, 0.00, '', '0'),
-	(30, 4, 147, 29, 0.00, 0.00, '', '0'),
-	(31, 4, 148, 29, 0.00, 0.00, '', '0'),
-	(32, 4, 149, 29, 4.00, 0.00, '', '4'),
-	(33, 4, 150, 29, 10.00, 0.00, '', '10'),
-	(34, 4, 151, 29, 9.00, 0.00, '', '9'),
-	(35, 4, 152, 29, 0.00, 0.00, '', '0'),
-	(36, 4, 153, 29, 4.00, 0.00, '', '4'),
-	(37, 4, 154, 29, 2.00, 0.00, '', '0'),
-	(38, 4, 155, 29, 2.00, 0.00, '', '2'),
-	(39, 4, 156, 29, 0.00, 0.00, '', '0'),
-	(40, 4, 157, 29, 0.00, 0.00, '', '0'),
-	(41, 4, 158, 29, 0.00, 0.00, '', '3'),
-	(42, 4, 159, 29, 3.00, 0.00, '', '3'),
-	(43, 4, 160, 29, 0.00, 0.00, '', '0'),
-	(44, 4, 161, 29, 2.00, 0.00, '', '2'),
-	(45, 4, 162, 29, 0.00, 0.00, '', '0'),
-	(46, 4, 163, 29, 3.00, 0.00, '', '3.00'),
-	(47, 4, 164, 29, 0.00, 0.00, '', '0'),
-	(48, 4, 165, 29, 2.00, 0.00, '', '2'),
-	(49, 4, 166, 29, 0.00, 0.00, '', '0'),
-	(50, 4, 167, 29, 0.00, 0.00, '', '0');
+	(1, 1, 118, 29, 4.00, 2.00, '', '4'),
+	(2, 1, 119, 29, 2.00, 2.00, '', '3'),
+	(3, 1, 120, 29, 4.00, 4.00, '', '2'),
+	(4, 1, 121, 29, 2.00, 0.00, '', '2'),
+	(5, 1, 122, 29, 2.00, 0.00, '', '1'),
+	(6, 1, 123, 29, 6.00, 0.00, '', '6'),
+	(7, 1, 124, 29, 6.00, 0.00, '', '6'),
+	(8, 1, 125, 29, 2.00, 0.00, '', '2'),
+	(9, 1, 126, 29, 2.00, 0.00, '', '0'),
+	(10, 1, 127, 29, 4.00, 0.00, '', '4'),
+	(11, 1, 128, 29, 4.00, 0.00, '', '4'),
+	(12, 1, 129, 29, 0.00, 0.00, '', '0'),
+	(13, 1, 130, 29, 0.00, 0.00, '', '0'),
+	(14, 1, 131, 29, 10.00, 0.00, '', '0'),
+	(15, 1, 132, 29, 5.00, 0.00, '', '5.00'),
+	(16, 1, 133, 29, 4.00, 0.00, '', '4'),
+	(17, 1, 134, 29, 0.00, 0.00, '', '0'),
+	(18, 1, 135, 29, 10.00, 0.00, '', '10'),
+	(19, 1, 136, 29, 5.00, 0.00, '', '5'),
+	(20, 1, 137, 29, -1.00, 0.00, '', '0'),
+	(21, 1, 138, 29, 0.00, 0.00, '', '0'),
+	(22, 1, 139, 29, 0.00, 0.00, '', '0'),
+	(23, 1, 140, 29, 10.00, 0.00, '', '10'),
+	(24, 1, 141, 29, 4.00, 0.00, '', '6'),
+	(25, 1, 142, 29, 0.00, 0.00, '', '0'),
+	(26, 1, 143, 29, 2.00, 0.00, '', '2'),
+	(27, 1, 144, 29, 0.00, 0.00, '', '0'),
+	(28, 1, 145, 29, 2.00, 0.00, '', '2'),
+	(29, 1, 146, 29, -1.00, 0.00, '', '0'),
+	(30, 1, 147, 29, 0.00, 0.00, '', '0'),
+	(31, 1, 148, 29, 0.00, 0.00, '', '0'),
+	(32, 1, 149, 29, 4.00, 0.00, '', '4'),
+	(33, 1, 150, 29, 10.00, 0.00, '', '10'),
+	(34, 1, 151, 29, 9.00, 0.00, '', '9'),
+	(35, 1, 152, 29, 0.00, 0.00, '', '0'),
+	(36, 1, 153, 29, 4.00, 0.00, '', '4'),
+	(37, 1, 154, 29, 2.00, 0.00, '', '0'),
+	(38, 1, 155, 29, 2.00, 0.00, '', '2'),
+	(39, 1, 156, 29, 0.00, 0.00, '', '0'),
+	(40, 1, 157, 29, 0.00, 0.00, '', '0'),
+	(41, 1, 158, 29, 0.00, 0.00, '', '3'),
+	(42, 1, 159, 29, 3.00, 0.00, '', '3'),
+	(43, 1, 160, 29, 0.00, 0.00, '', '0'),
+	(44, 1, 161, 29, 2.00, 0.00, '', '2'),
+	(45, 1, 162, 29, 0.00, 0.00, '', '0'),
+	(46, 1, 163, 29, 3.00, 0.00, '', '3.00'),
+	(47, 1, 164, 29, 0.00, 0.00, '', '0'),
+	(48, 1, 165, 29, 2.00, 0.00, '', '2'),
+	(49, 1, 166, 29, 0.00, 0.00, '', '0'),
+	(50, 1, 167, 29, 0.00, 0.00, '', '0');
 
 -- Dumping structure for table nhan.duyets
 CREATE TABLE IF NOT EXISTS `duyets` (
@@ -163,6 +208,8 @@ CREATE TABLE IF NOT EXISTS `duyets` (
   `diem_gv_cham` float DEFAULT NULL,
   `xep_loai` varchar(255) DEFAULT NULL,
   `nhan_xet` text,
+  `sv_cham` text,
+  `bcs_cham` text,
   `duyet` tinyint(1) DEFAULT '0',
   `user_id` bigint unsigned NOT NULL,
   `semester_id` bigint unsigned NOT NULL,
@@ -171,10 +218,10 @@ CREATE TABLE IF NOT EXISTS `duyets` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.duyets: ~1 rows (approximately)
-INSERT INTO `duyets` (`id`, `diem_gv_cham`, `xep_loai`, `nhan_xet`, `duyet`, `user_id`, `semester_id`, `created_at`, `nhan_xet_bcs`) VALUES
-	(1, 31, 'Yếu', '', 1, 1, 29, '2025-04-08 06:51:40', NULL),
-	(2, 120, 'Kém', '', 1, 4, 29, '2025-04-09 02:41:43', ' Nhận xét của Ban Can sự 222');
+-- Dumping data for table nhan.duyets: ~2 rows (approximately)
+INSERT INTO `duyets` (`id`, `diem_gv_cham`, `xep_loai`, `nhan_xet`, `sv_cham`, `bcs_cham`, `duyet`, `user_id`, `semester_id`, `created_at`, `nhan_xet_bcs`) VALUES
+	(1, 120, 'Kém', '', NULL, NULL, 1, 1, 29, '2025-04-08 06:51:40', NULL),
+	(2, 120, 'Kém', '', NULL, NULL, 1, 4, 29, '2025-04-09 02:41:43', ' Nhận xét của Ban Can sự 222');
 
 -- Dumping structure for table nhan.form_danh_gia
 CREATE TABLE IF NOT EXISTS `form_danh_gia` (
@@ -231,8 +278,7 @@ INSERT INTO `form_danh_gia` (`id`, `name`, `max_score`, `parent_id`) VALUES
 	(172, 'c) Hỗ trợ và tham gia tích cực các hoạt động chung của tập thể lớp, khoa, trường và ĐHĐN', 3, 167),
 	(173, '- Hỗ trợ và tham gia tích cực các hoạt động chung của tập thể lớp, khoa, trường và ĐHĐN', 3, 167),
 	(174, 'd) Đạt được thành tích trong học tập, rèn luyện', 2, 167),
-	(175, '- Đạt thành tích trong học tập, rèn luyện (được tặng bằng khen, giấy khen, chứng nhận, thư khen của các cấp)', 2, 167),
-	(178, '2222', 0, 0);
+	(175, '- Đạt thành tích trong học tập, rèn luyện (được tặng bằng khen, giấy khen, chứng nhận, thư khen của các cấp)', 2, 167);
 
 -- Dumping structure for table nhan.groupes
 CREATE TABLE IF NOT EXISTS `groupes` (
@@ -276,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `lop_chu_nhiem` (
   `group_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table nhan.lop_chu_nhiem: ~6 rows (approximately)
 INSERT INTO `lop_chu_nhiem` (`id`, `user_id`, `group_id`, `created_at`) VALUES
@@ -285,7 +331,8 @@ INSERT INTO `lop_chu_nhiem` (`id`, `user_id`, `group_id`, `created_at`) VALUES
 	(12, 6, 3, '2025-04-06 06:10:54'),
 	(13, 6, 4, '2025-04-06 06:10:54'),
 	(14, 7, 3, '2025-04-06 06:14:56'),
-	(15, 7, 7, '2025-04-06 06:14:56');
+	(15, 7, 7, '2025-04-06 06:14:56'),
+	(16, 1, 1, '2025-04-11 09:29:12');
 
 -- Dumping structure for table nhan.semester
 CREATE TABLE IF NOT EXISTS `semester` (
@@ -293,15 +340,31 @@ CREATE TABLE IF NOT EXISTS `semester` (
   `name` varchar(255) NOT NULL,
   `point` int DEFAULT '0',
   `point_class` int DEFAULT NULL,
-  `group_id` int DEFAULT NULL,
   `point_teacher` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.semester: ~1 rows (approximately)
-INSERT INTO `semester` (`id`, `name`, `point`, `point_class`, `group_id`, `point_teacher`) VALUES
-	(29, 'Học kỳ mới 2092', 0, NULL, 1, NULL);
+-- Dumping data for table nhan.semester: ~2 rows (approximately)
+INSERT INTO `semester` (`id`, `name`, `point`, `point_class`, `point_teacher`) VALUES
+	(29, 'Học kỳ mới 2092', 0, NULL, NULL),
+	(33, 'Học kỳ vui nhộn 1 2025', 0, NULL, NULL);
+
+-- Dumping structure for table nhan.semester_groups
+CREATE TABLE IF NOT EXISTS `semester_groups` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `semester_id` int NOT NULL,
+  `group_id` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table nhan.semester_groups: ~4 rows (approximately)
+INSERT INTO `semester_groups` (`id`, `semester_id`, `group_id`, `created_at`) VALUES
+	(1, 32, 7, '2025-04-13 19:26:17'),
+	(2, 32, 8, '2025-04-13 19:26:17'),
+	(3, 33, 4, '2025-04-13 19:26:50'),
+	(4, 29, 1, '2025-04-14 02:43:24');
 
 -- Dumping structure for table nhan.semester_scores
 CREATE TABLE IF NOT EXISTS `semester_scores` (
@@ -338,9 +401,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table nhan.users: ~7 rows (approximately)
+-- Dumping data for table nhan.users: ~6 rows (approximately)
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `role_name`, `group_id`, `chuyennganh`, `he_dao_tao`, `full_name`, `birthday`, `ma_sinh_vien`) VALUES
-	(1, 'nguyenvana@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'ban can su', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn B', '2005-03-08', '14551231222'),
+	(1, 'nguyenvana@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-15 14:51:08', 'sinh vien', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn B', '2005-03-08', '14551231222'),
 	(4, 'hungrandy', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-03-31 03:19:01', 'sinh vien', 1, 'Công Nghệ thông tin', 'Chính quy', 'Lê Quốc Hưng', '2001-01-15', '152155322'),
 	(6, 'nguyenvanc@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2025-04-06 06:10:54', 'sinh vien', 1, 'công nghệ thông tin', 'Chính quy', 'Nguyễn Văn D', '2025-04-02', NULL),
 	(7, 'nguyenvana2w@gmail.com', 'e2a1715ac00b5e872a2191fb13f69a69', '2025-04-06 06:14:56', 'ban can su', 1, NULL, NULL, 'Nguyễn Văn Lan', NULL, NULL),
