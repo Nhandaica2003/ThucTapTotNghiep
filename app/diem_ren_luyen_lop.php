@@ -6,20 +6,27 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
-$users = Capsule::table('users')->where('group_id', $user->group_id)->pluck('id');
 $semester_name = $_GET['semester_name'] ?? "";
 if ($semester_name) {
     $semester = Capsule::table('semester')->where('name', $semester_name)->first();
 } else {
-    $semester = Capsule::table('semester')->where('user_id', $user_id)->orderBy("id", "desc")->first();
-    $semester_name = $semester->name;
+    $semester = Capsule::table('semester')->leftJoin('semester_groups', 'semester.id', '=', 'semester_groups.semester_id')
+        ->where('semester_groups.group_id', $user->group_id)
+        ->first();
+        $semester_name = $semester->name;
 }
-$semesters = Capsule::table('semester')
-    ->leftJoin("users", "semester.user_id", "=", "users.id")
-    ->whereIn('user_id', $users)
-    ->where('name', $semester->name)->get();
-
-$semesterGroups =  Capsule::table('semester')->where('user_id', $user->id)->get();
+$users = Capsule::table('users')->where('group_id', $user->group_id)
+->leftJoin('duyets', function ($join) use ($semester) {
+    $join->on('duyets.user_id', '=', 'users.id')
+         ->where('duyets.semester_id', '=', $semester->id);
+})
+->select('users.*', 'duyets.diem_gv_cham', 'duyets.sv_cham', 'duyets.bcs_cham', 'duyets.nhan_xet', 'duyets.nhan_xet_bcs') // hoặc tùy thuộc field bạn muốn lấy
+->get();
+$semesterGroups = Capsule::table('semester_groups')
+    ->leftJoin('semester', 'semester_groups.semester_id', '=', 'semester.id')
+    ->where('semester_groups.group_id', $user->group_id)
+    ->select('semester.*')
+    ->get();
 ?>
 <main class="content">
     <header class="header">
@@ -56,16 +63,16 @@ $semesterGroups =  Capsule::table('semester')->where('user_id', $user->id)->get(
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php foreach ($semesters as $key => $semester): ?>
+                <?php foreach ($users as $key => $user): ?>
                     <tr>
                         <td><?= ++$key ?></td>
-                        <td><?= $semester->ma_sinh_vien ?></td>
-                        <td><?= $semester->full_name ?></td>
-                        <td><?= $semester->point ?></td>
-                        <td><?= $semester->point_class ?></td>
-                        <td><?= $semester->point_teacher ?></td>
-                        <td><button value="<?= $semester->comment_teacher ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
-                        <td><button value="<?= $semester->comment_bcs ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
+                        <td><?= $user->ma_sinh_vien ?></td>
+                        <td><?= $user->full_name ?></td>
+                        <td><?= $user->sv_cham ?></td>
+                        <td><?= $user->bcs_cham ?></td>
+                        <td><?= $user->diem_gv_cham ?></td>
+                        <td><button value="<?= $user->nhan_xet ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
+                        <td><button value="<?= $user->nhan_xet_bcs ?>" type="button" class="btn btn-primary btn-modal-comment" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

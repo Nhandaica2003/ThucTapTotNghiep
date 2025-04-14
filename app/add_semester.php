@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
+    $group_ids = $_POST['group_ids'] ?? [];
 
     if (empty($name)) {
         echo json_encode(['status' => 'error', 'message' => 'Tên học kỳ không được để trống.']);
@@ -13,45 +14,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $exists = Capsule::table('semester')->where('name', $name)->exists();
+
     if ($exists) {
         echo json_encode(['status' => 'error', 'message' => 'Học kỳ đã tồn tại.']);
         exit;
     }
 
+    // Insert học kỳ mới
     $semester_id = Capsule::table('semester')->insertGetId(['name' => $name]);
 
-    $filePath = '../database/diem_ren_luyen.xlsx'; // Đường dẫn đến file Excel
-    $spreadsheet = IOFactory::load($filePath);
-    $sheet = $spreadsheet->getActiveSheet();
-    $data = $sheet->toArray();
+    // Insert vào bảng semester_groups (nếu có group_ids)
+    if (!empty($group_ids)) {
+        $insertData = [];
+        foreach ($group_ids as $group_id) {
+            $insertData[] = [
+                'semester_id' => $semester_id,
+                'group_id' => $group_id,
+                'created_at' => date('Y-m-d H:i:s'),
+            ];
+        }
 
-    // Bỏ hàng tiêu đề (nếu có)
-    array_shift($data);
+        Capsule::table('semester_groups')->insert($insertData);
+    }
+
+    // Xử lý file Excel
+    $data = Capsule::table('form_danh_gia')->get();
 
     foreach ($data as $row) {
-        $name = $row[0];
-        if(!$name){
+        $studentName = $row->name ?? null;
+        if (!$studentName) {
             break;
         }
-        $max_score = (float) $row[1];
-        $student_self_assessment_score = (float) $row[2];
-        $class_assessment_score = (float) $row[3];
-
-        // Lấy ID của học kỳ
+        $max_score = (float) $row->max_score ?? 0;
 
         // Insert vào bảng diem_ren_luyen
         Capsule::table('diem_ren_luyen')->insert([
-            'name' => $name,
+            'name' => $studentName,
             'max_score' => $max_score,
-            'student_self_assessment_score' => $student_self_assessment_score,
-            'class_assessment_score' => $class_assessment_score,
             'semester_id' => $semester_id,
         ]);
     }
 
-
     if ($semester_id) {
-        echo json_encode(['status' => 'success', 'message' => 'Thêm học kỳ thành công.', 'id' => $semester_id, 'name' => $name]);
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Thêm học kỳ thành công.',
+            'id' => $semester_id,
+            'name' => $name
+        ]);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Có lỗi xảy ra, vui lòng thử lại.']);
     }

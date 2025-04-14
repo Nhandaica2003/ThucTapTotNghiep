@@ -18,6 +18,10 @@ $user = Capsule::table('users')->where('id', $user_id)->first();
 $total = Capsule::table('semester')->count();
 $semesters = Capsule::table('semester')->offset($offset)->limit($limit)->get();
 $total_pages = ceil($total / $limit);
+$khoa = Capsule::table('khoa')->get();
+foreach ($khoa as $key => $value) {
+    $khoa[$key]->groups = Capsule::table('groupes')->where('khoa_id', $value->id)->get();
+}
 ?>
 
 <style>
@@ -32,8 +36,13 @@ $total_pages = ceil($total / $limit);
     .pagination {
         margin-top: 20px;
     }
-</style>
 
+    .select2-container {
+        z-index: 99999999999999999;
+    }
+</style>
+<link href="../public/select2/select2.min.css" rel="stylesheet" />
+<script src="../public/select2/select2.min.js"></script>
 <main class="content">
     <header class="header">
         <div class="container mt-5">
@@ -84,7 +93,24 @@ $total_pages = ceil($total / $limit);
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control" id="newSemesterName" placeholder="Tên học kỳ">
+                <div class="row mb-3">
+                    <label for="newSemesterName" class="label-title">Tên học kỳ</label>
+                    <input type="text" class="form-control" id="newSemesterName" placeholder="Tên học kỳ">
+                </div>
+                <div class="row mb-3">
+                    <label for="khoa" class="label-title">Khoa</label>
+                    <select class="form-select select2" id="khoa" name="group_ids[]" multiple required>
+                        <?php foreach ($khoa as $key => $value): ?>
+                            <optgroup label="<?= $value->name ?>">
+                                <?php foreach ($value->groups as $group): ?>
+                                    <option value="<?= $group->id ?>"><?= $group->group_name ?></option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -103,8 +129,24 @@ $total_pages = ceil($total / $limit);
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
+                <div class="row mb-3">
+                    <label for="editSemesterName" class="label-title">Tên học kỳ</label>
+                    <input type="text" class="form-control" id="editSemesterName" placeholder="Tên học kỳ">
+                </div>
                 <input type="hidden" id="editSemesterId">
-                <input type="text" class="form-control" id="editSemesterName">
+                <div class="row mb-3">
+                    <label class="form-label">Lớp chủ nhiệm:</label>
+                    <select class="form-select select2" name="group_ids[]" id="edit-groups" multiple>
+                        <?php foreach ($khoa as $key => $value): ?>
+                            <optgroup label="<?= $value->name ?>">
+                                <?php foreach ($value->groups as $group): ?>
+                                    <option value="<?= $group->id ?>"><?= $group->group_name ?></option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endforeach; ?>
+                        <!-- Option của bạn sẽ đổ ở đây -->
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -132,6 +174,13 @@ $total_pages = ceil($total / $limit);
 </div>
 
 <script>
+    // Khởi tạo Select2 cho các select box
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Chọn trái cây yêu thích",
+            allowClear: true
+        });
+    });
     document.addEventListener("DOMContentLoaded", function() {
         var editModal = document.getElementById("editModal");
         editModal.addEventListener("show.bs.modal", function(event) {
@@ -151,11 +200,17 @@ $total_pages = ceil($total / $limit);
     });
     $("#addSemester").click(function() {
         var semesterName = $("#newSemesterName").val();
+        if (semesterName === "") {
+            alert("Vui lòng nhập tên học kỳ.");
+            return;
+        }
+        let selectedValues = $('#khoa').val();
         $.ajax({
             url: "/app/add_semester.php",
             type: "POST",
             data: {
-                name: semesterName
+                name: semesterName,
+                group_ids: selectedValues // Gửi giá trị đã chọn
             },
             dataType: "json", // Thêm dòng này
             success: function(response) {
@@ -163,10 +218,10 @@ $total_pages = ceil($total / $limit);
                 if (response.status === 'success') {
                     console.log("response", response);
                     alert(response.message);
+                    location.reload();
                 } else {
                     alert(response.message);
                 }
-                // location.reload();
             }
         });
     });
@@ -174,12 +229,14 @@ $total_pages = ceil($total / $limit);
     $("#saveEdit").click(function() {
         var semesterId = $("#editSemesterId").val();
         var semesterName = $("#editSemesterName").val();
+        var groupIds = $('#edit-groups').val(); // Lấy giá trị đã chọn từ select2
         $.ajax({
             url: "/app/edit_semester.php",
             type: "POST",
             data: {
                 id: semesterId,
-                name: semesterName
+                name: semesterName,
+                group_ids: groupIds // Gửi giá trị đã chọn
             },
             dataType: "json", // Thêm dòng này
             success: function(response) {

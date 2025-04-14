@@ -6,6 +6,8 @@ header("Content-Type: application/json");
 $data = json_decode(file_get_contents("php://input"), true);
 $user_id = $_GET["user_id"] ?? null;
 $point_gvcn = 0;
+$point_sv = 0;
+$point_bcs = 0;
 if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
     foreach ($data["diem_ren_luyen"] as $item) {
         $diem_ren_luyen = Capsule::table("diem_ren_luyen")
@@ -47,6 +49,8 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
             ]
         );
         $point_gvcn += $item["teacher_assessment_score"];
+        $point_sv += $item["student_self_assessment_score"];
+        $point_bcs += $item["class_assessment_score"];
     
     }
     if($point_gvcn > 0){
@@ -61,6 +65,8 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
                 'xep_loai' => $xep_loai,
                 'nhan_xet' => $duyet->nhan_xet ?? "",
                 'duyet' =>  $duyet->duyet ??0,
+                'sv_cham' => $point_sv,
+                'bcs_cham' => $point_bcs,
             ]
         );
     
