@@ -85,7 +85,7 @@ $semesters = Capsule::table('semester_groups')
                     <tr>
                         <td><?= ++$key ?></td>
                         <td><a href="diem_ren_luyen.php?semester_id=<?= $semester->id ?>"><?= $semester->name ?></a> </td>
-                        <td><?= $semester->point ?></td>
+                        <td><?= $semester->sv_cham ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
