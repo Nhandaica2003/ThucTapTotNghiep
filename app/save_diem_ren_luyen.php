@@ -24,14 +24,14 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
         }
         $diem_ren_luyen_user_id = Capsule::table("diem_ren_luyen_user_id")->where(["diem_ren_luyen_id" => $item["id"]])->first();
         if($diem_ren_luyen_user_id){
-            $item["student_self_assessment_score"] = !empty($item["student_self_assessment_score"]) ? $item["student_self_assessment_score"]  : $diem_ren_luyen_user_id->student_self_assessment_score;
-            $item["class_assessment_score"] = !empty($item["class_assessment_score"]) ? $item["class_assessment_score"] : $diem_ren_luyen_user_id->class_assessment_score;
-            $item["teacher_assessment_score"] = !empty($item["teacher_assessment_score"]) ? $item["teacher_assessment_score"] : $diem_ren_luyen_user_id->teacher_assessment_score;
-            $item["evidence"] = !empty($item["evidence"]) ? $item["evidence"] : $diem_ren_luyen_user_id->evidence;
+            $item["student_self_assessment_score"] = !empty($item["student_self_assessment_score"]) && $item["student_self_assessment_score"] >= 0 ? $item["student_self_assessment_score"]  : ($diem_ren_luyen_user_id->student_self_assessment_score >= 0 ? $diem_ren_luyen_user_id->student_self_assessment_score : 0); ;
+            $item["class_assessment_score"] = !empty($item["class_assessment_score"]) && $item["class_assessment_score"] >= 0 ? $item["class_assessment_score"] : ($diem_ren_luyen_user_id->class_assessment_score >= 0 ? $diem_ren_luyen_user_id->class_assessment_score : 0);;
+            $item["teacher_assessment_score"] = !empty($item["teacher_assessment_score"]) && $item["teacher_assessment_score"] >= 0 ? $item["teacher_assessment_score"] : ($diem_ren_luyen_user_id->teacher_assessment_score >= 0 ? $diem_ren_luyen_user_id->teacher_assessment_score : 0);;
+            $item["evidence"] = !empty($item["evidence"]) ? $item["evidence"]  : $diem_ren_luyen_user_id->evidence;
         }else{
-            $item["student_self_assessment_score"] = !empty($item["student_self_assessment_score"]) ? $item["student_self_assessment_score"]  : 0;
-            $item["class_assessment_score"] = !empty($item["class_assessment_score"]) ? $item["class_assessment_score"] : 0;
-            $item["teacher_assessment_score"] = !empty($item["teacher_assessment_score"]) ? $item["teacher_assessment_score"] : 0;
+            $item["student_self_assessment_score"] = !empty($item["student_self_assessment_score"])  && $item["student_self_assessment_score"] >= 0  ? $item["student_self_assessment_score"]  : 0;
+            $item["class_assessment_score"] = !empty($item["class_assessment_score"])  && $item["class_assessment_score"] >= 0 ? $item["class_assessment_score"] : 0;
+            $item["teacher_assessment_score"] = !empty($item["teacher_assessment_score"])  && $item["teacher_assessment_score"] >= 0 ? $item["teacher_assessment_score"] : 0;
             $item["evidence"] = !empty($item["evidence"]) ? $item["evidence"] : "";
         }
        
