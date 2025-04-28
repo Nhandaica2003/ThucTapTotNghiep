@@ -15,6 +15,7 @@ if (empty($_SESSION['user_id'])) {
 }
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
+$groupId = $user->group_id;
 
 $semesters = Capsule::table('semester')->leftJoin('duyets', 'duyets.semester_id', '=', 'semester.id')
     ->select(
@@ -25,8 +26,11 @@ $semesters = Capsule::table('semester')->leftJoin('duyets', 'duyets.semester_id'
         Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Trung bình" THEN 1 ELSE 0 END) as average_count'),
         Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Yếu" THEN 1 ELSE 0 END) as weak_count'),
         Capsule::raw('SUM(CASE WHEN duyets.xep_loai = "Kém" THEN 1 ELSE 0 END) as poor_count')
-    )->groupBy('semester.id')
-    ->where('semester.group_id', $user->group_id)->get();
+    )->groupBy('semester.id')->leftJoin('semester_groups',
+    function ($join) use ($groupId) {
+        $join->on('semester_groups.semester_id', '=', 'semester.id')
+            ->where('semester_groups.group_id', '=', $groupId);
+    })->get();
 
 
 ?>
