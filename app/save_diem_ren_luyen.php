@@ -53,25 +53,23 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
         $point_bcs += $item["class_assessment_score"];
     
     }
-    if($point_gvcn > 0){
-        $duyet = Capsule::table("duyets")->where("user_id", $user_id)->where('semester_id', $diem_ren_luyen->semester_id)->first();
-        $xep_loai = getXepLoai($point_gvcn);
-        
-        Capsule::table("duyets")->where("user_id", $user_id)->where('semester_id', $diem_ren_luyen->semester_id)->updateOrInsert([
-            'user_id' => $user_id,
-            'semester_id' => $diem_ren_luyen->semester_id],
-            [
-                'diem_gv_cham' => $point_gvcn,
-                'xep_loai' => $xep_loai,
-                'nhan_xet' => $duyet->nhan_xet ?? "",
-                'duyet' =>  $duyet->duyet ??0,
-                'sv_cham' => $point_sv,
-                'bcs_cham' => $point_bcs,
-            ]
-        );
+    $duyet = Capsule::table("duyets")->where("user_id", $user_id)->where('semester_id', $diem_ren_luyen->semester_id)->first();
+    $xep_loai = getXepLoai($point_gvcn);
     
-    }
-       echo json_encode(["success" => true]);
+    Capsule::table("duyets")->where("user_id", $user_id)->where('semester_id', $diem_ren_luyen->semester_id)->updateOrInsert([
+        'user_id' => $user_id,
+        'semester_id' => $diem_ren_luyen->semester_id],
+        [
+            'diem_gv_cham' => $point_gvcn,
+            'xep_loai' => $xep_loai,
+            'nhan_xet' => $duyet->nhan_xet ?? "",
+            'duyet' =>  $duyet->duyet ??0,
+            'sv_cham' => $point_sv,
+            'bcs_cham' => $point_bcs,
+        ]
+    );
+
+    echo json_encode(["success" => true]);
 } else {
     echo json_encode(["success" => false]);
 }

@@ -24,7 +24,6 @@ $semesters = Capsule::table('semester_groups')
     })
     ->where('semester_groups.group_id', $user->group_id)
     ->select('semester.*', 'duyets.sv_cham')->offset($offset)->limit($limit)
-
     ->get();
 ?>
 <style>
