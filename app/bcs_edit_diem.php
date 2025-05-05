@@ -53,9 +53,11 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
     <header class="header">
         <div class="container mt-5 d-flex">
             <h4 class=""><?= $user_danh_gia->full_name ?> - <?= $semester->name ?></h4>
-            <button class="btn btn-primary ms-2 text-end"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nhận xét</button>
-            <button class="btn btn-primary ms-4 text-end" id="btn-edit">Xem lại</button>
-            <button class="btn btn-primary ms-4 text-end" id="btn-save">Lưu</button>
+            <?php if ($user->role_name == ROLE_BCS): ?>
+                <button class="btn btn-primary ms-2 text-end"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nhận xét</button>
+                <button class="btn btn-primary ms-4 text-end" id="btn-edit">Xem lại</button>
+                <button class="btn btn-primary ms-4 text-end" id="btn-save">Lưu</button>
+            <?php endif; ?>
         </div>
     </header>
     <div class="table-container">

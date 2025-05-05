@@ -13,6 +13,7 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
         $diem_ren_luyen = Capsule::table("diem_ren_luyen")
         ->where("id", $item["id"])
         ->first();
+       
 
         if (empty($diem_ren_luyen)) {
             echo json_encode(["success" => false, "message" => "Lỗi: Không tìm thấy điểm rèn luyện"]);
@@ -21,6 +22,9 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
         if (empty($diem_ren_luyen)) {
             echo json_encode(["success" => false, "message" => "Lỗi: Không tìm thấy điểm rèn luyện"]);
             die();
+        }
+        if (strpos($diem_ren_luyen->name, '-') !== 0) {
+          continue;
         }
         $diem_ren_luyen_user_id = Capsule::table("diem_ren_luyen_user_id")->where(["diem_ren_luyen_id" => $item["id"]])->first();
         if($diem_ren_luyen_user_id){

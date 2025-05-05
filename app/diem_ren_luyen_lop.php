@@ -11,7 +11,7 @@ if ($semester_name) {
     $semester = Capsule::table('semester')->where('name', $semester_name)->first();
 } else {
     $semester = Capsule::table('semester')->leftJoin('semester_groups', 'semester.id', '=', 'semester_groups.semester_id')
-        ->where('semester_groups.group_id', $user->group_id)
+        ->where('semester_groups.group_id', $user->group_id)->select('semester.*')
         ->first();
         $semester_name = $semester->name;
 }
@@ -66,8 +66,8 @@ $semesterGroups = Capsule::table('semester_groups')
                 <?php foreach ($users as $key => $user): ?>
                     <tr>
                         <td><?= ++$key ?></td>
-                        <td><?= $user->ma_sinh_vien ?></td>
-                        <td><?= $user->full_name ?></td>
+                        <td> <?= $user->ma_sinh_vien ?></td>
+                        <td><a href="/app/bcs_edit_diem.php?semester_id=<?=$semester->id?>&user_id=<?= $user->id ?>"><?= $user->full_name ?></a></td>
                         <td><?= $user->sv_cham ?></td>
                         <td><?= $user->bcs_cham ?></td>
                         <td><?= $user->diem_gv_cham ?></td>

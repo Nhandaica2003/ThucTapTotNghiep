@@ -2,7 +2,6 @@
 include_once "../database.php";
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
