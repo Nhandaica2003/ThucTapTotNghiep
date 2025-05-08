@@ -16,6 +16,10 @@ if(empty($_SESSION['user_id'])){
 $user_id = $_SESSION['user_id'];
 $user = Capsule::table('users')->where('id', $user_id)->first();
 $group = Capsule::table('groupes')->where('id', $user->group_id)->first();
+if(!$group){
+    $lop_chu_nhiem = Capsule::table('lop_chu_nhiem')->where('user_id', $user_id)->first();
+    $group = Capsule::table('groupes')->where('id', $lop_chu_nhiem->group_id)->first();
+}
 $semesters = Capsule::table('semester_groups')
     ->leftJoin('semester', 'semester_groups.semester_id', '=', 'semester.id')
     ->leftJoin('duyets', function ($join) use ($user_id) {

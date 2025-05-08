@@ -64,7 +64,6 @@ foreach ($khoa as $key => $value) {
                     <th>STT</th>
                     <th>Họ và tên</th>
                     <th>Tên đăng nhập</th>
-                    <th>Mật Khẩu</th>
                     <th>Lớp chủ nhiệm</th>
                     <th>Action</th>
                 </tr>
@@ -75,7 +74,6 @@ foreach ($khoa as $key => $value) {
                         <td><?= $offset + $key + 1 ?></td>
                         <td><?= $teacher->full_name ?></td>
                         <td><?= $teacher->username ?></td>
-                        <td><?= $teacher->password ?></td>
                         <td><?= $teacher->group_names ?></td>
                         <td>
                             <button class="btn btn-primary btn-edit"
@@ -270,7 +268,7 @@ foreach ($khoa as $key => $value) {
       $('#edit-id').val(btn.data('id'));
       $('#edit-fullname').val(btn.data('fullname'));
       $('#edit-username').val(btn.data('username'));
-      $('#edit-password').val(btn.data('password')); // hoặc để trống nếu không sửa
+      $('#edit-password').val(""); // hoặc để trống nếu không sửa
 
       // Gán selected cho group_ids nếu bạn có danh sách
       const selectedGroups = (btn.data('groups') + '').split(',');

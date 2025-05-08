@@ -8,7 +8,7 @@ $id = $_POST['id'] ?? null;
 $fullName = $_POST['full_name'] ?? '';
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
-$group_id = $_POST['group_id'] ?? [];
+$group_ids = $_POST['group_ids'] ?? [];
 
 if (!$id || empty($fullName) || empty($username) || empty($group_ids)) {
     echo json_encode(['status' => 'error', 'message' => 'Vui lòng điền đầy đủ thông tin']);
@@ -33,7 +33,7 @@ $updateData = [
 ];
 
 if (!empty($password)) {
-    $updateData['password'] = $password; // hoặc dùng password_hash
+    $updateData['password'] = md5($password); // hoặc dùng password_hash
 }
 
 DB::table('users')->where('id', $id)->update($updateData);
