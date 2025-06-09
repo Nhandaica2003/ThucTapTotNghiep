@@ -67,6 +67,7 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
                     <th>Nội dung và tiêu chí đánh giá</th>
                     <th>Điểm tối đa</th>
                     <th>Điểm sinh viên đánh giá (0)</th>
+                    <th>Điểm sinh BCS Chấm</th>
                     <th>Điểm GV đánh giá (0)</th>
                     <th>Minh chứng</th>
                 </tr>
@@ -77,6 +78,7 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
                         <td data-id="<?= $diem_ren_luyen->id ?>"><?= $diem_ren_luyen->name ?></td>
                         <td><?= $diem_ren_luyen->max_score ?></td>
                         <td><?= $diem_ren_luyen->student_self_assessment_score ?></td>
+                        <td><?= $diem_ren_luyen->class_assessment_score ?></td>
                         <td><?= $diem_ren_luyen->teacher_assessment_score ?></td>
                         <td>
                             <?php if ($diem_ren_luyen->evidence): ?>
@@ -128,7 +130,8 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
                 <td data-id="${id_diem_ren_luyen}"><input type="text" class="form-control" name="name" value="${row.children[0].innerText}"></td>
                 <td><input type="number" class="form-control" name="max_score" value="${row.children[1].innerText}"></td>
                 <td><input type="number" class="form-control" name="student_self_assessment_score" value="${row.children[2].innerText}"></td>
-                <td><input type="number" class="form-control" name="teacher_assessment_score" value="${row.children[3].innerText}"></td>
+                <td><input type="number" class="form-control" name="class_assessment_score" value="${row.children[3].innerText}"></td>
+                <td><input type="number" class="form-control" name="teacher_assessment_score" value="${row.children[4].innerText}"></td>
                 <td>
                     <input type="file" class="form-control evidence-upload" name="evidence">
                     <input type="hidden" class="form-control evidence-link" value="${imagesrc}" name="evidence_link">
@@ -197,7 +200,8 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
                         alert("Lưu thành công!");
                         location.reload();
                     } else {
-                        alert("Có lỗi xảy ra!");
+                        message = result.message ? result.message : "có lỗi xảy ra";
+                        alert(message);
                     }
                 });
         });
