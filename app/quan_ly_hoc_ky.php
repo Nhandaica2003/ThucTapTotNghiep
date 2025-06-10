@@ -111,8 +111,10 @@ foreach ($khoa as $key => $value) {
                         <?php endforeach; ?>
                     </select>
                 </div>
-
-
+                  <div class="row mb-3">
+                    <label for="newSemesterName" class="label-title">Thêm học kỳ cho tất cả các lớp</label>
+                    <input type="checkbox" name="all_class" id="all_class" value="1">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -207,12 +209,18 @@ foreach ($khoa as $key => $value) {
             return;
         }
         let selectedValues = $('#khoa').val();
+        all_class = 0;
+        if ($('#all_class').is(':checked')) {
+            all_class =1;
+        } 
+
         $.ajax({
             url: "/app/add_semester.php",
             type: "POST",
             data: {
                 name: semesterName,
-                group_ids: selectedValues // Gửi giá trị đã chọn
+                group_ids: selectedValues, // Gửi giá trị đã chọn
+                all_class: all_class
             },
             dataType: "json", // Thêm dòng này
             success: function(response) {
