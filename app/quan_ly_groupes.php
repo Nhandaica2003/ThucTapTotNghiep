@@ -27,7 +27,7 @@ $groups = Capsule::table('groupes')
                     <th>Tên Lớp</th>
                     <th>Khóa Học</th>
                     <th>Ngày Tạo</th>
-                    <th>Action</th>
+                    <th>Chỉnh sửa</th>
                 </tr>
             </thead>
             <tbody>

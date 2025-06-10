@@ -93,7 +93,7 @@ $groups = Capsule::table('groupes')->get();
           <th>Tên đăng nhập</th>
           <th>Mật Khẩu</th>
           <th>Lớp</th>
-          <th>Action</th>
+          <th>Chỉnh sửa</th>
         </tr>
       </thead>
       <tbody>

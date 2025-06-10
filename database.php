@@ -9,7 +9,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver'    => 'mysql',
     'host'      => '127.0.0.1',
-    'database'  => 'nhan',
+    'database'  => 'thuctaptotnghiep1',
     'username'  => 'root',
     'password'  => '',
     'charset'   => 'utf8',
@@ -43,19 +43,19 @@ const ARRAY_XEP_LOAI = [
     'kém'
 ];
 class XepLoaiRange {
-    const XS   = [95, 100];
-    const GIOI = [81, 94];
-    const KHA  = [71, 80];
-    const TBK  = [60, 70];
-    const TB   = [50, 59];
-    const YEU  = [30, 49];
+    const XS   = [90, 100];
+    const TOT = [80, 89];
+    const KHA  = [65,79];
+    const TB  = [50,64 ];
+    const YEU   = [35, 49];
+    const KEM  = [0,34];
 }
 function getXepLoai($point) {
     if ($point >= XepLoaiRange::XS[0] && $point <= XepLoaiRange::XS[1]) return "Xuất Sắc";
-    if ($point >= XepLoaiRange::GIOI[0] && $point <= XepLoaiRange::GIOI[1]) return "Giỏi";
+    if ($point >= XepLoaiRange::TOT[0] && $point <= XepLoaiRange::TOT[1]) return "Tốt";
     if ($point >= XepLoaiRange::KHA[0] && $point <= XepLoaiRange::KHA[1]) return "Khá";
-    if ($point >= XepLoaiRange::TBK[0] && $point <= XepLoaiRange::TBK[1]) return "Trung Bình Khá";
-    if ($point >= XepLoaiRange::TB[0] && $point <= XepLoaiRange::TB[1]) return "Trung Bình";
+    if ($point >= XepLoaiRange::TB[0] && $point <= XepLoaiRange::TB[1]) return "Trung Bình ";
     if ($point >= XepLoaiRange::YEU[0] && $point <= XepLoaiRange::YEU[1]) return "Yếu";
+    if ($point >= XepLoaiRange::KEM[0] && $point <= XepLoaiRange::KEM[1]) return "Kém";
     return "Kém";
 }

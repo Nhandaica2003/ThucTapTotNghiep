@@ -42,6 +42,13 @@ $semesters = Capsule::table('semester')->leftJoin('duyets', 'duyets.semester_id'
     .clearfix {
         clear: both;
     }
+    a {
+        text-decoration: none ;
+        color: blue;
+    }
+
+ 
+
 </style>
 <main class="content">
     <header class="header">

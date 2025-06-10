@@ -10,15 +10,49 @@ $parents = Capsule::table('form_danh_gia')->where('parent_id', 0)->get();
 foreach ($parents as $parent) {
     $items = Capsule::table('form_danh_gia')->where('parent_id', $parent->id)->get();
     $parent->items = $items;
+
+
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_parent_id'])) {
+    $idToDelete = intval($_POST['delete_parent_id']);
+
+    // Kết nối CSDL
+    require_once 'thuctaptotnghiep1'; // <-- thay bằng file kết nối của bạn
+
+
+    // Xoá mục cha
+    $stmt = $conn->prepare("DELETE FROM parent_items WHERE id = ?");
+    $stmt->bind_param("i", $idToDelete);
+    
+    if ($stmt->execute()) {
+        echo "<script>alert('Đã xóa thành công!');</script>";
+    } else {
+        echo "<script>alert('Lỗi khi xóa!');</script>";
+    }
+}
+
 ?>
 <style>
+    
     .background-primary {
         background: #007bff;
         color: white;
         padding: 10px;
         border-radius: 5px;
         margin-bottom: 10px;
+    }
+    .parent-section .background-primary {
+    display: flex;
+    gap: 1px;
+    }
+
+    .parent-section .background-primary .btn {
+    margin-left: 5px;
+    }
+
+    .parent-section .background-primary div {
+    display: flex;
+    gap: 5px;
     }
 
     table {
@@ -40,14 +74,18 @@ foreach ($parents as $parent) {
 <div class="container mt-4">
     <h1 class="text-center">PHIẾU ĐÁNH GIÁ ĐIỂM RÈN LUYỆN CỦA SINH VIÊN</h1>
     <button class="btn btn-primary mb-3" id="add-parent">+ Thêm mục</button>
-    <button class="btn btn-success" id="save">Lưu</button>
+    <button style="margin-bottom: 1rem;" class="btn btn-success" id="save" >Lưu</button>
 
     <?php foreach ($parents as $parent): ?>
         <div class="parent-section">
-            <div class="background-primary d-flex justify-content-between">
-                <span><?php echo $parent->name; ?></span>
-                <button class="btn btn-light btn-sm add-child" data-parent-id="<?php echo $parent->id; ?>">+</button>
-            </div>
+        <div class="background-primary d-flex justify-content-between align-items-center p-2 rounded">
+    <span><?php echo $parent->name; ?></span>
+    <div class="d-flex gap-1">
+        <button class="btn btn-light btn-sm add-child" data-parent-id="<?php echo $parent->id; ?>">+</button>
+        <button class="btn btn-danger btn-sm delete-parent" data-id="<?php echo $parent->id; ?>" data-name="<?php echo $parent->name; ?>">Xóa</button>
+    </div>
+</div>
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -79,6 +117,7 @@ foreach ($parents as $parent) {
         <form id="itemForm" class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Thêm mục</h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -98,6 +137,26 @@ foreach ($parents as $parent) {
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
             </div>
         </form>
+    </div>
+</div>
+<!-- Modal Xóa Mục -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white "   >
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="delete-item-id">
+                <p>Bạn có chắc chắn muốn xóa mục này không?</p>
+                <p class="fw-bold text-danger" id="delete-item-name"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-confirm-delete" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -192,6 +251,28 @@ foreach ($parents as $parent) {
 
         $('#save').click(() => alert('Dữ liệu đã được lưu!'));
         $('#preview').click(() => window.open('preview.php', '_blank'));
+    });
+    let deleteParentId = null;
+
+    // Bắt sự kiện nhấn nút "Xóa"
+    $(document).on('click', '.delete-parent', function () {
+        deleteParentId = $(this).data('id');
+        const name = $(this).data('name');
+        $('#delete-item-id').val(deleteParentId);
+        $('#delete-item-name').text(name);
+        $('#deleteModal').modal('show');
+    });
+
+    // Xác nhận xóa
+    $('#btn-confirm-delete').click(function () {
+        if (deleteParentId) {
+            // AJAX hoặc form submit để xóa parent theo deleteParentId
+            // Ví dụ xóa khỏi DOM luôn:
+            $(`[data-id="${deleteParentId}"]`).closest('.parent-section').remove();
+
+            $('#deleteModal').modal('hide');
+            deleteParentId = null;
+        }
     });
 </script>
 </body>

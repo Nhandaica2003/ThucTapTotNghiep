@@ -65,7 +65,7 @@ foreach ($khoa as $key => $value) {
                     <th>Họ và tên</th>
                     <th>Tên đăng nhập</th>
                     <th>Lớp chủ nhiệm</th>
-                    <th>Action</th>
+                    <th>Chỉnh sửa</th>
                 </tr>
             </thead>
             <tbody>
@@ -227,7 +227,7 @@ foreach ($khoa as $key => $value) {
     // Khởi tạo Select2 cho các select box
     $(document).ready(function() {
         $('.select2').select2({
-        placeholder: "Chọn trái cây yêu thích",
+        placeholder: "Chọn Khoá",
         allowClear: true
         });
     });

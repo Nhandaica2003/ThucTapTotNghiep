@@ -27,8 +27,18 @@ $semesterGroups = Capsule::table('semester_groups')
     ->where('semester_groups.group_id', $user->group_id)
     ->select('semester.*')
     ->get();
+
 ?>
 <main class="content">
+    <style>
+        a {
+            text-decoration: none ;
+            color: blue;
+        }
+
+       
+    </style>
+
     <header class="header">
         <div class="container mt-5">
             <form method="GET" action="">
@@ -85,15 +95,15 @@ $semesterGroups = Capsule::table('semester_groups')
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nhận xét</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
@@ -112,5 +122,6 @@ $semesterGroups = Capsule::table('semester_groups')
     });
 </script>
 </body>
+
 
 </html>

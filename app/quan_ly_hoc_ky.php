@@ -56,7 +56,7 @@ foreach ($khoa as $key => $value) {
                 <tr>
                     <th>STT</th>
                     <th>Học kỳ</th>
-                    <th>Action</th>
+                    <th>Chỉnh sửa</th>
                 </tr>
             </thead>
             <tbody>
@@ -98,7 +98,7 @@ foreach ($khoa as $key => $value) {
                     <input type="text" class="form-control" id="newSemesterName" placeholder="Tên học kỳ">
                 </div>
                 <div class="row mb-3">
-                    <label for="khoa" class="label-title">Khoa</label>
+                    <label for="khoa" class="label-title">Khoá</label>
                     <select class="form-select select2" id="khoa" name="group_ids[]" multiple required>
                         <?php foreach ($khoa as $key => $value): ?>
                             <optgroup label="<?= $value->name ?>">
@@ -177,7 +177,8 @@ foreach ($khoa as $key => $value) {
     // Khởi tạo Select2 cho các select box
     $(document).ready(function() {
         $('.select2').select2({
-            placeholder: "Chọn trái cây yêu thích",
+            placeholder: "Chọn khoá",
+
             allowClear: true
         });
     });

@@ -38,6 +38,23 @@ $semesters = Capsule::table('semester_groups')
     .clearfix {
         clear: both;
     }
+    .label-title {
+        font-weight: bold;
+    }
+
+    .clearfix {
+        clear: both;
+    }
+
+    /* Bỏ gạch chân link */
+    .table a {
+        text-decoration: none;
+        color: blue; /* Giữ nguyên màu chữ như bình thường */
+    }
+
+    .table a:hover {
+        text-decoration: underline; /* Tuỳ chọn: hiện gạch chân khi hover */
+    }
 </style>
 <main class="content">
     <header class="header">

@@ -21,7 +21,7 @@ $courses = Capsule::table('khoa')->get();
                     <th>ID</th>
                     <th>Tên Khóa</th>
                     <th>Ngày Tạo</th>
-                    <th>Action</th>
+                    <th>Chỉnh sửa</th>
                 </tr>
             </thead>
             <tbody>
