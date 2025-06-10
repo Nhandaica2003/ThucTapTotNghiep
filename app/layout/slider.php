@@ -9,6 +9,16 @@ if(!$user_id){
     header('Location: login.php');
 }
 $user = Capsule::table('users')->where('id', $user_id)->first();
+$role_name_vietsub = '';
+if($user->role_name == ROLE_GV){
+$role_name_vietsub =  "Giáo viên";
+}else if($role_name_vietsub == ROLE_SV){
+    $role_name_vietsub = 'Sinh viên';
+}else if($user->role_name == ROLE_BCS){
+    $role_name_vietsub = 'Ban cán sự';
+}else if($user->role_name == ROLE_ADMIN){
+    $role_name_vietsub = "Admin";
+}
 $khoas = [];
 if ($user->role_name == ROLE_GV) {
     $khoas = Capsule::table('khoa')
@@ -29,7 +39,7 @@ $current_url = $_SERVER['REQUEST_URI'];
     </div>
     <div class="dropdown">
         <a href="#" class="text-white dropdown-toggle d-flex align-items-center text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-user-circle me-2"></i> <?= htmlspecialchars($user->full_name) ?>
+            <i class="fas fa-user-circle me-2"></i> <?= $role_name_vietsub .": ". htmlspecialchars($user->full_name) ?>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li><a class="dropdown-item" href="/app/logout.php">Đăng xuất</a></li>
@@ -61,7 +71,7 @@ $current_url = $_SERVER['REQUEST_URI'];
                             </a>
                             <div class="submenu">
                                 <a href="/app/quan_ly_hoc_ky.php" class="submenu-item <?= strpos($current_url, 'quan_ly_hoc_ky') !== false ? 'active' : '' ?>">Danh sách Học kỳ</a>
-                                <a href="/app/quan_ly_bcs.php" class="submenu-item <?= strpos($current_url, 'quan_ly_bcs') !== false ? 'active' : '' ?>">Danh sách BCS</a>
+                                <!-- <a href="/app/quan_ly_bcs.php" class="submenu-item <?= strpos($current_url, 'quan_ly_bcs') !== false ? 'active' : '' ?>">Danh sách BCS</a> -->
                                 <a href="/app/quan_ly_gvcn.php" class="submenu-item <?= strpos($current_url, 'quan_ly_gvcn') !== false ? 'active' : '' ?>">Danh sách GVCN</a>
                                 <a href="/app/quan_ly_khoa.php" class="submenu-item <?= strpos($current_url, 'quan_ly_khoa') !== false ? 'active' : '' ?>">Quản lý khóa</a>
                                 <a href="/app/quan_ly_groupes.php" class="submenu-item <?= strpos($current_url, 'quan_ly_groupes') !== false ? 'active' : '' ?>">Quản lý lớp</a>
