@@ -48,7 +48,7 @@ body {
     cursor: pointer;
 }
 
-.menu li.active, .menu li:hover {
+.menu li.active {
     background-color: #76aee6;
 }
 
@@ -137,6 +137,9 @@ body {
 
 .submenu-item:hover {
     background-color: #2471a3;
+}
+div.menu-item a:hover{
+    background-color: #76aee6;
 }
 
 table {

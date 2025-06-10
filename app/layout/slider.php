@@ -59,7 +59,7 @@ $current_url = $_SERVER['REQUEST_URI'];
                     <li>
                         <div class="menu-item">
                             <a href="/app/quan_ly_form_danh_gia.php"
-                               class="<?= strpos($current_url, '/app/quan_ly_form_danh_gia.php') !== false ? 'active' : '' ?>">
+                               class="<?= strpos($current_url, '/app/quan_lyform_danh_gia.php') !== false ? 'active' : '' ?>">
                                 <i class="fas fa-user"></i> Quản lý form đánh giá
                             </a>
                         </div>
