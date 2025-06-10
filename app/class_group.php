@@ -16,6 +16,7 @@ if (!$khoa) {
 }
 ?>
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
     <header class="header">
         <div class="container mt-5">
             <h4 class="text-center">Khóa <?= $khoa->name  ?></h4>

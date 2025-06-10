@@ -40,10 +40,10 @@ $semesters = Capsule::table('semester_groups')
     }
 </style>
 <main class="content">
+
     <header class="header">
         <div class="container mt-5">
             <h4 class="text-center">ĐIỂM RÈN LUYỆN</h4>
-
             <div class="row mb-2">
                 <div class="col-6">
                     <span class="label-title">Lớp:</span>

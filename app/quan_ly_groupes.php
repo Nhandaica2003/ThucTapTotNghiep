@@ -12,6 +12,8 @@ $groups = Capsule::table('groupes')
     $courses = Capsule::table('khoa')->get();
 ?>
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
+
     <header class="header">
         <div class="container mt-5">
             <h4 class="text-center">Quản Lý Lớp Học</h4>

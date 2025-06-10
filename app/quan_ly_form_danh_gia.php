@@ -38,6 +38,7 @@ foreach ($parents as $parent) {
 </style>
 
 <div class="container mt-4">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
     <h1 class="text-center">PHIẾU ĐÁNH GIÁ ĐIỂM RÈN LUYỆN CỦA SINH VIÊN</h1>
     <button class="btn btn-primary mb-3" id="add-parent">+ Thêm mục</button>
     <button class="btn btn-success" id="save">Lưu</button>

@@ -53,6 +53,8 @@ $duyet = Capsule::table('duyets')->where('user_id', $user_id_danh_gia)->where('s
     <header class="header">
         <div class="container mt-5 d-flex">
             <h4 class=""><?= $user_danh_gia->full_name ?>- <?= $semester->name ?></h4>
+            <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
+
             <button class="btn btn-primary ms-4 text-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Nhận xét
             </button>

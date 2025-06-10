@@ -5,6 +5,9 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $user_id = $_SESSION['user_id'];
+if(!$user_id){
+    header('Location: login.php');
+}
 $user = Capsule::table('users')->where('id', $user_id)->first();
 $khoas = [];
 if ($user->role_name == ROLE_GV) {
@@ -20,6 +23,19 @@ if ($user->role_name == ROLE_GV) {
 $current_url = $_SERVER['REQUEST_URI'];
 ?>
 <body>
+    
+<header class="navbar navbar-expand-lg navbar-dark px-3 d-flex justify-content-between align-items-center col-md-12">
+    <div class="d-flex align-items-center">
+    </div>
+    <div class="dropdown">
+        <a href="#" class="text-white dropdown-toggle d-flex align-items-center text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-circle me-2"></i> <?= htmlspecialchars($user->full_name) ?>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="/app/logout.php">Đăng xuất</a></li>
+        </ul>
+    </div>
+</header>
     <div class="d-flex h-100 col-12">
         <aside class="sidebar">
             <ul class="menu">
@@ -101,3 +117,4 @@ $current_url = $_SERVER['REQUEST_URI'];
                 <?php } ?>
             </ul>
         </aside>
+    

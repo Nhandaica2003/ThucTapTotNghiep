@@ -29,6 +29,7 @@ $semesterGroups = Capsule::table('semester_groups')
     ->get();
 ?>
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
     <header class="header">
         <div class="container mt-5">
             <form method="GET" action="">

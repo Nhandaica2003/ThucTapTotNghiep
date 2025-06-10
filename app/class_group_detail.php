@@ -47,9 +47,12 @@ if (!$group) {
     }
 </style>
 <main class="content">
+        <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
+
     <div class="container mt-5">
         <h4 class="text-center">Lớp <?= $group->group_name  ?></h4>
     </div>
+    
     <header class="header">
 
         <!-- Dropdown và nút -->
