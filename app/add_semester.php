@@ -6,7 +6,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $group_ids = $_POST['group_ids'] ?? [];
-
+    $all_class = $_POST['all_class'];
     if (empty($name)) {
         echo json_encode(['status' => 'error', 'message' => 'Tên học kỳ không được để trống.']);
         exit;
@@ -21,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert học kỳ mới
     $semester_id = Capsule::table('semester')->insertGetId(['name' => $name]);
-
+    if ($all_class == 1) {
+        $group_ids = Capsule::table("groupes")->pluck('id')->toArray();
+    }
     // Insert vào bảng semester_groups (nếu có group_ids)
     if (!empty($group_ids)) {
         $insertData = [];
