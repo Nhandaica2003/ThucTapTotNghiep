@@ -23,10 +23,11 @@ $users = Capsule::table('users')
     ->limit($limit);
 $users = $users->where("users.group_id", "=", $group_id); // Lọc theo group_id
 $users = $users->get();
+$countBCS = Capsule::table('users')->where('role_name', ROLE_BCS)->where("group_id", $group_id)->count();
 
 $total_pages = ceil($total / $limit);
+$group = Capsule::table("groupes")->where("id", $group_id)->first();
 
-$groupes = Capsule::table('groupes')->get();
 
 ?>
 
@@ -45,6 +46,8 @@ $groupes = Capsule::table('groupes')->get();
 </style>
 
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
+
     <header class="header">
         <div class="container mt-5">
             <h4 class="text-center">Quản Lý Sinh Viên</h4>
@@ -129,16 +132,12 @@ $groupes = Capsule::table('groupes')->get();
                 <label for="newRole" class="label-title mt-2">Quyền:</label>
                 <select class="form-control" id="newRole">
                     <option value="sinh vien">Sinh viên</option>
-                    <option value="giang vien">Giảng viên</option>
                     <option value="ban can su">Ban cán sự</option>
                 </select>
 
                 <label for="newGroup" class="label-title mt-2">Lớp:</label>
                 <select name="" class="form-select" id="newGroup">
-                    <option value="">Chọn Lớp</option>
-                    <?php foreach ($groupes as $group): ?>
-                        <option value="<?= $group->id ?>" <?= $group_id == $group->id ? "selected" : ""  ?>><?= $group->group_name ?></option>
-                    <?php endforeach; ?>
+                        <option value="<?= $group->id ?>"selected ><?= $group->group_name ?></option>
                 </select>
 
                 <label for="newMajor" class="label-title mt-2">Chuyên ngành:</label>
@@ -182,16 +181,12 @@ $groupes = Capsule::table('groupes')->get();
                 <label for="editRole" class="label-title mt-2">Quyền:</label>
                 <select class="form-control" id="editRole">
                     <option value="sinh vien">Sinh viên</option>
-                    <option value="giang vien">Giảng viên</option>
                     <option value="ban can su">Ban cán sự</option>
                 </select>
 
                 <label for="editGroup" class="label-title mt-2">Lớp:</label>
                 <select name="" class="form-select" id="editGroup">
-                    <option value="">Chọn Lớp</option>
-                    <?php foreach ($groupes as $group): ?>
-                        <option value="<?= $group->id ?>" <?= $group_id == $group->id ? "selected" : "" ?>><?= $group->group_name ?></option>
-                    <?php endforeach; ?>
+                    <option value="<?= $group->id ?>"selected ><?= $group->group_name ?></option>
                 </select>
 
                 <label for="editMajor" class="label-title mt-2">Chuyên ngành:</label>
@@ -279,6 +274,11 @@ $groupes = Capsule::table('groupes')->get();
         });
 
         $("#addStudent").click(function() {
+            countBCS = parseInt("<?= $countBCS?>");
+            if($("#newRole").val() == "ban can su" && countBCS >= 3){
+                alert("Lỗi!!! không thể thêm Ban cán sự của lớp này vì đã có 3 ban cán sự Lỗi!!!");
+                return false;
+            }
             var data = {
                 ma_sinh_vien: $("#newStudentId").val(),
                 full_name: $("#newStudentName").val(),
@@ -310,6 +310,8 @@ $groupes = Capsule::table('groupes')->get();
 
 
         $("#saveEdit").click(function() {
+          
+
             var data = {
                 id: $("#editStudentId").val(),
                 full_name: $("#editStudentName").val(),

@@ -1,7 +1,6 @@
 body {
     font-family: sans-serif;
     margin: 0;
-    display: flex;
 }
 
 .divider {
@@ -23,7 +22,21 @@ body {
     width: 80px;
     margin-bottom: 10px;
 }
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
 
+
+.sidebar a.active {
+    background-color: #ffffff33; /* trắng trong suốt nhẹ */
+    color: #fff;
+    border-radius: 8px;
+}
 .menu {
     list-style: none;
     padding: 0;
@@ -42,7 +55,6 @@ body {
 .menu a {
     text-decoration: none;
     color: white;
-    white-space: break-spaces;
     width: 248px;
     display: block;
 }
@@ -154,4 +166,27 @@ th {
     margin-left: auto; /* Đẩy nút sang bên phải */
     margin-right: 20px;
     display: flex;
-}   
+}
+header.navbar {
+    height: 60px;
+    background-color: #096eba;
+    color: white;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header.navbar img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+header.navbar .dropdown a {
+    color: white;
+    background-color: #096eba;
+    text-decoration: none;
+}
+.dropdown-menu.show {
+    background: #096eba;
+}

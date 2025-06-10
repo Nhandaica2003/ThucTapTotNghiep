@@ -30,6 +30,7 @@ $semesterGroups = Capsule::table('semester_groups')
 
 ?>
 <main class="content">
+
     <style>
         a {
             text-decoration: none ;
@@ -38,6 +39,9 @@ $semesterGroups = Capsule::table('semester_groups')
 
        
     </style>
+
+
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
 
     <header class="header">
         <div class="container mt-5">

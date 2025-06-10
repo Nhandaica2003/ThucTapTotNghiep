@@ -38,6 +38,19 @@ if (!empty($data["diem_ren_luyen"]) && isset($data["semester_id"])) {
             $item["teacher_assessment_score"] = !empty($item["teacher_assessment_score"])  && $item["teacher_assessment_score"] >= 0 ? $item["teacher_assessment_score"] : 0;
             $item["evidence"] = !empty($item["evidence"]) ? $item["evidence"] : "";
         }
+
+        if($item["student_self_assessment_score"] > $diem_ren_luyen->max_score ){
+            echo json_encode(["success" => false, 'message' => 'Điểm nhận xét cao hơn điểm tối đa lỗi!!!']);
+            die();
+        }
+        if($item["teacher_assessment_score"] > $diem_ren_luyen->max_score){
+            echo json_encode(["success" => false, 'message' => 'Điểm nhận xét cao hơn điểm tối đa lỗi!!!']);
+            die();
+        }
+         if($item["class_assessment_score"] > $diem_ren_luyen->max_score){
+            echo json_encode(["success" => false, 'message' => 'Điểm nhận xét cao hơn điểm tối đa lỗi!!!']);
+            die();
+        }
        
         
         Capsule::table("diem_ren_luyen_user_id")->updateOrInsert(

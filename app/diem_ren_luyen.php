@@ -48,9 +48,11 @@ $diem_ren_luyens = Capsule::table('diem_ren_luyen')
     }
 </style>
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
     <header class="header">
         <div class="container mt-5 d-flex">
             <h4 class="">Sinh viên đánh giá điểm rèn luyện theo lớp- <?= $semester->name ?></h4>
+
             <button class="btn btn-primary ms-4 text-end" id="btn-edit">Xem lại</button>
             <button class="btn btn-primary ms-4 text-end" id="btn-save">Lưu</button>
         </div>

@@ -51,6 +51,8 @@ foreach ($khoa as $key => $value) {
 <link href="../public/select2/select2.min.css" rel="stylesheet" />
 <script  src="../public/select2/select2.min.js"></script>
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
+
     <header class="header">
         <div class="container mt-5">
             <h4 class="text-center">Danh Sách Giáo Viên Chủ Nhiệm</h4>

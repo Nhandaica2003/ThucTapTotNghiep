@@ -10,9 +10,16 @@ if (!$group_id) {
     exit;
 }
 $semester_id = $_GET['semester_id'] ?? null;
-
-$users = Capsule::table('users')->where('group_id', $group_id);
-$users = $users->select("users.*");
+$semesters = Capsule::table('semester')->select('semester.*')->join('semester_groups',
+    function ($join) use ($group_id) {
+        $join->on('semester_groups.semester_id', '=', 'semester.id')
+            ->where('semester_groups.group_id', '=', $group_id);
+    })->get();
+$semesterFirst = $semesters[0];
+if(!$semester_id){
+    $semester_id = $semesterFirst->id;
+}
+$users = Capsule::table('users')->select("users.*")->where('group_id', $group_id);
 if ($semester_id) {
     $users = $users->leftJoin('duyets', function ($join) use ($semester_id) {
         $join->on('users.id', '=', 'duyets.user_id')
@@ -25,7 +32,7 @@ if (!$group) {
     header("Location: /app/class_group.php");
     exit;
 }
-$semester = Capsule::table('semester')->where('group_id', $group_id)->get();
+
 ?>
 <style>
     th,
@@ -40,9 +47,12 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
     }
 </style>
 <main class="content">
+        <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
+
     <div class="container mt-5">
         <h4 class="text-center">Lớp <?= $group->group_name  ?></h4>
     </div>
+    
     <header class="header">
 
         <!-- Dropdown và nút -->
@@ -50,8 +60,7 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
             <div>
                 <label for="semester" class="form-label me-2">Học kỳ:</label>
                 <select class="form-select d-inline-block" id="semester">
-                    <option value="">Làm ơn chọn Học kỳ</option>
-                    <?php foreach ($semester as $sem):  ?>
+                    <?php foreach ($semesters as $sem):  ?>
                         <option value='<?= $sem->id ?>' <?= !empty($semester_id) && $semester_id == $sem->id ? "selected" : "" ?>><?= $sem->name ?></option>
                     <?php endforeach; ?>
                 </select>
@@ -63,6 +72,7 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                     Export
                 </a>
                 <button class="btn btn-info text-white ms-2" id="duyet-submit-id">Duyệt</button>
+                 <button class="btn btn-primary text-white ms-2" id="duyet-all">Duyệt Tất cả</button>
             </div>
         </div>
     </header>
@@ -138,11 +148,43 @@ $semester = Capsule::table('semester')->where('group_id', $group_id)->get();
                 if (data.status === 'success') {
                     alert('Đã duyệt thành công!');
                 } else {
-                    alert('Có lỗi xảy ra!');
+                    message = data.message ?  data.message : 'Có lỗi xảy ra!'; 
+                    alert(message);
                 }
             })
             .catch(() => alert('Lỗi kết nối!'));
     });
+    document.getElementById("duyet-all").addEventListener('click', function() {
+        const checked = document.querySelectorAll('.checkbox-duyet');
+        const semester_id = "<?= $semester_id ?>";
+        const userIds = [];
+
+        checked.forEach(cb => {
+            userIds.push(cb.dataset.userId);
+        });
+
+                // Gửi Ajax
+        fetch('/app/duyet_submit.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_ids: userIds,
+                    semester_id: semester_id
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Đã duyệt thành công!');
+                } else {
+                    message = data.message ?  data.message : 'Có lỗi xảy ra!'; 
+                    alert(message);
+                }
+            })
+            .catch(() => alert('Lỗi kết nối!'));
+    })
 </script>
 </body>
 

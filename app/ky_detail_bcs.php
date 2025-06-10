@@ -38,6 +38,7 @@ $users = Capsule::table('users')
 
 ?>
 <main class="content">
+    <a href="javascript:history.back()" class="btn btn-secondary me-2">← Quay lại</a>
     <header class="header">
         <div class="container mt-5">
 

@@ -22,19 +22,17 @@ foreach ($user_ids as $user_id) {
         ->where('semester_id', $semester_id)
         ->first();
 
-    if ($exists) {
-        Capsule::table('duyets')
+   if($exists) {
+        if($exists->xep_loai){
+            Capsule::table('duyets')
             ->where('user_id', $user_id)
             ->where('semester_id', $semester_id)
-            ->update(['duyet' => 1]);
-    } else {
-        Capsule::table('duyets')->insert([
-            'user_id' => $user_id,
-            'semester_id' => $semester_id,
-            'duyet' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-    }
+            ->update(['duyet' => 1]);     
+        }else{
+            $user =  Capsule::table("users")->where('id', $exists->user_id)->first();
+            echo json_encode(['status' => 'success', 'message' => 'Lỗi!!! chưa xếp loại cho ' . $user->full_name]);
+        }
+    } 
 }
 
 echo json_encode(['status' => 'success']);
